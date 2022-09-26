@@ -8,6 +8,7 @@ public class TeamCreateDialogue extends Dialogue {
         super(player, 7, "create your team");
     }
 
+
     @Override
     public void initialPrompt() {
         this.sendMessageHeader();
@@ -22,10 +23,12 @@ public class TeamCreateDialogue extends Dialogue {
         this.sendMessageFooter();
     }
 
+
     @Override
     public void parseAnswer(String answer) {
     }
 
+    
     @Override
     public void cancelMessage() {
         this.sendMessage("canceled");

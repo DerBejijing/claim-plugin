@@ -15,6 +15,7 @@ public abstract class Dialogue {
 
     private final int header_length = 40;
 
+
     public Dialogue(Player player, int stages, String title) {
         this.player = player;
         this.stage = 0;
@@ -34,15 +35,20 @@ public abstract class Dialogue {
         this.header_title = sb.toString();
     }
 
+
     public abstract void initialPrompt();
+
 
     public abstract void parseAnswer(String answer);
     
+
     public abstract void cancelMessage();
+
 
     protected void sendMessageHeader() {
         this.player.sendMessage(this.header_title);
     }
+
 
     protected void sendMessageFooter() {
         StringBuilder progress_bar = new StringBuilder();
@@ -60,14 +66,17 @@ public abstract class Dialogue {
         this.player.sendMessage(progress_bar.toString());
     }
 
+
     protected void sendMessage(String message) {
         this.player.sendMessage(message);
     }
+
 
     public void cancel() {
         this.cancelMessage();
         this.active = false;
     }
+    
 
     public boolean active() {
         return this.active;

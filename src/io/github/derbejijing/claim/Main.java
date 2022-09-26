@@ -1,6 +1,5 @@
 package io.github.derbejijing.claim;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.derbejijing.claim.command.Claim;

@@ -1,8 +1,8 @@
-name: adopt
+name: claim
 version: 1.0
 api-version: 1.19
 author: Der_Bejijing
-prefix: Adopt
+prefix: claim
 website: https://github.com/DerBejijing/claim-plugin
 main: io.github.derbejijing.claim.Main
 commands:

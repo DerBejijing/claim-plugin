@@ -27,8 +27,14 @@ public class ChatUtils {
     public static void user_prompt_submit(String player, String result) {
         for(UserPrompt up : ChatUtils.user_prompts) if(up.player.equals(player)) {
             up.result = result;
+            up.answer();
             return;
         }
+    }
+
+    public static boolean user_prompt_answered(String player) {
+        for(UserPrompt up : ChatUtils.user_prompts) if(up.player.equals(player)) if(up.answered) return true;
+        return false;
     }
 
     public static String user_prompt_result(String player) {

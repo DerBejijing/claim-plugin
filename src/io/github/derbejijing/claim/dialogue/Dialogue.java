@@ -6,18 +6,19 @@ import net.md_5.bungee.api.ChatColor;
 
 public abstract class Dialogue {
     
+    public final Player player;
+
     private String header_title;
-    private Player player;
     private int stage;
-    private int length;
+    private int stages;
     private boolean active;
 
     private final int header_length = 40;
 
-    public Dialogue(Player player, int length, String title) {
+    public Dialogue(Player player, int stages, String title) {
         this.player = player;
         this.stage = 0;
-        this.length = length;
+        this.stages = stages;
         this.active = true;
 
         int title_length = (title.length() % 2 == 0 ? title.length() : title.length() + 1);
@@ -37,14 +38,16 @@ public abstract class Dialogue {
 
     public abstract void parseAnswer(String answer);
     
+    public abstract void cancelMessage();
+
     protected void sendMessageHeader() {
         this.player.sendMessage(this.header_title);
     }
 
     protected void sendMessageFooter() {
         StringBuilder progress_bar = new StringBuilder();
-        int progress = this.stage / this.length * 16;
-        progress_bar.append("---------- [ ");
+        int progress = this.stage / this.stages * 16;
+        progress_bar.append("---------- [");
         progress_bar.append(ChatColor.GREEN);
 
         for(int i = 0; i < progress; ++i) progress_bar.append("#");
@@ -52,13 +55,18 @@ public abstract class Dialogue {
         for(int i = 0; i < 16 - progress; ++i) progress_bar.append("#");
 
         progress_bar.append(ChatColor.RESET);
-        progress_bar.append(" ] ----------");
+        progress_bar.append("] ----------");
 
         this.player.sendMessage(progress_bar.toString());
     }
 
-    public void cancel() {
+    protected void sendMessage(String message) {
+        this.player.sendMessage(message);
+    }
 
+    public void cancel() {
+        this.cancelMessage();
+        this.active = false;
     }
 
     public boolean active() {

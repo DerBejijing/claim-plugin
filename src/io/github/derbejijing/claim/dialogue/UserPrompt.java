@@ -1,4 +1,4 @@
-package io.github.derbejijing.claim.util;
+package io.github.derbejijing.claim.dialogue;
 
 public class UserPrompt {
 

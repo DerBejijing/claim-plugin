@@ -4,18 +4,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import io.github.derbejijing.claim.util.ChatUtils;
+import io.github.derbejijing.claim.dialogue.DialogueManager;
 
 public class ChatEvent implements Listener {
 
     @EventHandler
     public void onMessageSend(AsyncPlayerChatEvent e) {
-        String player = e.getPlayer().getName();
-
-        if(ChatUtils.user_prompt_active(player)) {
-            ChatUtils.user_prompt_submit(player, e.getMessage());
-            e.setCancelled(true);
-        }
+        DialogueManager.handleChatMessage(e.getPlayer(), e.getMessage());
     }
     
 }

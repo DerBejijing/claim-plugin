@@ -37,11 +37,11 @@ public abstract class Dialogue {
 
     public abstract void parseAnswer(String answer);
     
-    private void sendMessageHeader() {
-        this.player.sendMessage("--------- [ create your team ] ---------");
+    protected void sendMessageHeader() {
+        this.player.sendMessage(this.header_title);
     }
 
-    private void sendMessageFooter() {
+    protected void sendMessageFooter() {
         StringBuilder progress_bar = new StringBuilder();
         int progress = this.stage / this.length * 16;
         progress_bar.append("---------- [ ");

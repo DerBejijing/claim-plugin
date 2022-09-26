@@ -10,6 +10,8 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void initialPrompt() {
+        this.sendMessageHeader();
+
         
     }
 

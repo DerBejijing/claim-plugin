@@ -1,6 +1,7 @@
 package io.github.derbejijing.claim;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import io.github.derbejijing.claim.command.Claim;
 import io.github.derbejijing.claim.command.ClaimInfo;
@@ -12,6 +13,7 @@ import io.github.derbejijing.claim.command.TeamKick;
 import io.github.derbejijing.claim.command.TeamLeave;
 import io.github.derbejijing.claim.command.TeamLog;
 import io.github.derbejijing.claim.command.Unclaim;
+import io.github.derbejijing.claim.util.ChatUtils;
 
 public class Main extends JavaPlugin {
     
@@ -28,6 +30,13 @@ public class Main extends JavaPlugin {
         this.getCommand("teamkick").setExecutor(new TeamKick());
         this.getCommand("teamleave").setExecutor(new TeamLeave());
         this.getCommand("teamlog").setExecutor(new TeamLog());
+
+        new BukkitRunnable() {       
+            @Override
+            public void run() {
+                ChatUtils.utils_tick();
+            }
+        }.runTaskTimer(this, 0, 20);
 
     }
 

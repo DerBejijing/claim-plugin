@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 public class TeamCreateDialogue extends Dialogue {
 
     public TeamCreateDialogue(Player player) {
-        super(player, 4, "create your team");
+        super(player, 6, "create your team");
     }
 
 
@@ -26,31 +26,68 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void parseAnswer(String answer) {
+        if(answer.toLowerCase().equals("cancel")) this.cancel();
+        ++this.stage;
+
         switch(this.stage) {
             case 0:
                 this.sendMessageHeader();
                 this.sendMessage("Great name!");
-                this.sendMessage("Now, give a short description:");
+                this.sendMessage("Now, give a short subtitle:");
                 this.sendMessageFooter();
                 break;
             case 1:
                 this.sendMessageHeader();
-                this.sendMessage("Great!");
-                this.sendMessage("Give a list of all players");
+                this.sendMessage("Here is a list of currently supported");
+                this.sendMessage("domains. Choose the one that fits best.");
+                this.sendMessage("Only send the index letter:");
+                this.sendMessage("A) Presidency");
+                this.sendMessage("B) Dictatorship");
+                this.sendMessage("C) Monarchy");
+                this.sendMessage("D) Democratic Council");
+                this.sendMessage("E) Dictated Council");
+                this.sendMessage("F) Anarchy");
+                this.sendMessage("G) Other");
                 this.sendMessageFooter();
                 break;
             case 2:
                 this.sendMessageHeader();
-                this.sendMessage("Lol, another dumb question!");
+                this.sendMessage("Name all leader members, separated");
+                this.sendMessage("by a colon \",\"");
                 this.sendMessageFooter();
                 break;
             case 3:
                 this.sendMessageHeader();
-                this.sendMessage("We are done!");
-                this.sendMessage("Type ok to confirm!");
+                this.sendMessage("Now set permissions for leaders.");
+                this.sendMessage("Name all abilities only the leader(s)");
+                this.sendMessage("will have and only send the index");
+                this.sendMessage("letters non-separated");
+                this.sendMessage("A) invite new players");
+                this.sendMessage("B) promote players / transfer domain");
+                this.sendMessage("C) kick players from the team");
+                this.sendMessage("D) claim area for the team");
+                this.sendMessage("E) none");
                 this.sendMessageFooter();
                 break;
             case 4:
+                this.sendMessageHeader();
+                this.sendMessage("Now set permissions for members.");
+                this.sendMessage("Name all abilities everybody");
+                this.sendMessage("will have and only send the index");
+                this.sendMessage("letters non-separated");
+                this.sendMessage("A) invite new players");
+                this.sendMessage("B) promote players / transfer domain");
+                this.sendMessage("C) kick players from the team");
+                this.sendMessage("D) claim area for the team");
+                this.sendMessage("E) none");
+                this.sendMessageFooter();
+                break;
+            case 5:
+                this.sendMessageHeader();
+                this.sendMessage("Send ok to create <nation>");
+                this.sendMessage("Here all data...");
+                this.sendMessageFooter();
+            case 6:
                 this.finish();
         }
     }

@@ -8,13 +8,12 @@ public abstract class Dialogue {
     
     public final Player player;
 
+    protected String header_title;
+    protected boolean active;
+    protected int stages;
     protected int stage;
 
-    private String header_title;
-    private int stages;
-    private boolean active;
-
-    private final int header_length = 40;
+    protected final int header_length = 40;
 
 
     public Dialogue(Player player, int stages, String title) {

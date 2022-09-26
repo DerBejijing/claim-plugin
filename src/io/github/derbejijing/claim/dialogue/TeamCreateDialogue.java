@@ -26,39 +26,33 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void parseAnswer(String answer) {
-        if(this.stage == 0) {
-            // only if message is ok, eg not CANCEL
-            ++this.stage;
-
-            this.sendMessageHeader();
-            this.sendMessage("Great name!");
-            this.sendMessage("Now, give a short description:");
-            this.sendMessageFooter();
-        } else if(this.stage == 1) {
-            // only if message is ok, eg not CANCEL
-            ++this.stage;
-
-            this.sendMessageHeader();
-            this.sendMessage("Great!");
-            this.sendMessage("Give a list of all players");
-            this.sendMessageFooter();
-        } else if(this.stage == 2) {
-            // only if message is ok, eg not CANCEL
-            ++this.stage;
-
-            this.sendMessageHeader();
-            this.sendMessage("Lol, another dumb question!");
-            this.sendMessageFooter();
-        } else if(this.stage == 3) {
-            // only if message is ok, eg not CANCEL
-            ++this.stage;
-
-            this.sendMessageHeader();
-            this.sendMessage("We are done!");
-            this.sendMessage("Type ok to confirm!");
-            this.sendMessageFooter();
+        switch(this.stage) {
+            case 0:
+                this.sendMessageHeader();
+                this.sendMessage("Great name!");
+                this.sendMessage("Now, give a short description:");
+                this.sendMessageFooter();
+                break;
+            case 1:
+                this.sendMessageHeader();
+                this.sendMessage("Great!");
+                this.sendMessage("Give a list of all players");
+                this.sendMessageFooter();
+                break;
+            case 2:
+                this.sendMessageHeader();
+                this.sendMessage("Lol, another dumb question!");
+                this.sendMessageFooter();
+                break;
+            case 3:
+                this.sendMessageHeader();
+                this.sendMessage("We are done!");
+                this.sendMessage("Type ok to confirm!");
+                this.sendMessageFooter();
+                break;
+            case 4:
+                this.finish();
         }
-        if(this.stage == 4) this.finish();
     }
 
 

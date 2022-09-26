@@ -11,7 +11,7 @@ public class PlayerEvent implements Listener {
     
     @EventHandler
     public void playerQuitEvent(PlayerQuitEvent e) {
-        DialogueManager.cancelDialoge(e.getPlayer());
+        DialogueManager.cancelDialogue(e.getPlayer());
     }
 
 }

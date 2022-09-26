@@ -8,20 +8,13 @@ public class DialogueManager {
 
     private static ArrayList<Dialogue> dialogues = new ArrayList<Dialogue>();
 
-
-    /*
-    public static void addDialogue(Player player, Class<Dialogue> dialogType) {
-        for(Dialogue d : DialogueManager.dialogues) if(d.player.equals(player)) return;
-        DialogueManager.dialogues.add(new TeamCreateDialogue(player));
-    }*/
-
     public static void addDialogueTeamCreate(Player player) {
         for(Dialogue d : DialogueManager.dialogues) if(d.player.equals(player)) return;
         DialogueManager.dialogues.add(new TeamCreateDialogue(player));
     }
 
 
-    public static void cancelDialoge(Player player) {
+    public static void cancelDialogue(Player player) {
         for(Dialogue d : DialogueManager.dialogues) if(d.player.equals(player)) d.cancel();
     }
 

@@ -10,7 +10,7 @@ public class ChatEvent implements Listener {
 
     @EventHandler
     public void onMessageSend(AsyncPlayerChatEvent e) {
-        DialogueManager.handleChatMessage(e.getPlayer(), e.getMessage());
+        e.setCancelled(DialogueManager.handleChatMessage(e.getPlayer(), e.getMessage()));
     }
     
 }

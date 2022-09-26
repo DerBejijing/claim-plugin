@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 public class TeamCreateDialogue extends Dialogue {
 
     public TeamCreateDialogue(Player player) {
-        super(player, 7, "create your team");
+        super(player, 4, "create your team");
     }
 
 
@@ -26,9 +26,42 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void parseAnswer(String answer) {
+        if(this.stage == 0) {
+            // only if message is ok, eg not CANCEL
+            ++this.stage;
+
+            this.sendMessageHeader();
+            this.sendMessage("Great name!");
+            this.sendMessage("Now, give a short description:");
+            this.sendMessageFooter();
+        } else if(this.stage == 1) {
+            // only if message is ok, eg not CANCEL
+            ++this.stage;
+
+            this.sendMessageHeader();
+            this.sendMessage("Great!");
+            this.sendMessage("Give a list of all players");
+            this.sendMessageFooter();
+        } else if(this.stage == 2) {
+            // only if message is ok, eg not CANCEL
+            ++this.stage;
+
+            this.sendMessageHeader();
+            this.sendMessage("Lol, another dumb question!");
+            this.sendMessageFooter();
+        } else if(this.stage == 3) {
+            // only if message is ok, eg not CANCEL
+            ++this.stage;
+
+            this.sendMessageHeader();
+            this.sendMessage("We are done!");
+            this.sendMessage("Type ok to confirm!");
+            this.sendMessageFooter();
+        }
+        if(this.stage == 4) this.finish();
     }
 
-    
+
     @Override
     public void cancelMessage() {
         this.sendMessage("canceled");

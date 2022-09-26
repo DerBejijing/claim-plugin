@@ -6,32 +6,32 @@ public class ChatUtils {
     
     private static ArrayList<UserPrompt> user_prompts = new ArrayList<UserPrompt>();
 
-    public void chat_block(String player) {
+    public static void chat_block(String player) {
 
     }
 
-    public void chat_unblock(String player) {
+    public static void chat_unblock(String player) {
     
     }
 
-    public boolean user_prompt_active(String player) {
+    public static boolean user_prompt_active(String player) {
         for(UserPrompt up : ChatUtils.user_prompts) if(up.player.equals(player)) return true;
         return false;
     }
 
-    public void user_prompt_start(String player) {
+    public static void user_prompt_start(String player) {
         for(UserPrompt up : ChatUtils.user_prompts) if(up.player.equals(player)) return;
         ChatUtils.user_prompts.add(new UserPrompt(player));
     }
 
-    public void user_prompt_submit(String player, String result) {
+    public static void user_prompt_submit(String player, String result) {
         for(UserPrompt up : ChatUtils.user_prompts) if(up.player.equals(player)) {
             up.result = result;
             return;
         }
     }
 
-    public String user_prompt_result(String player) {
+    public static String user_prompt_result(String player) {
         UserPrompt remove = null;
         String result = "";
 
@@ -45,7 +45,7 @@ public class ChatUtils {
         return result;
     }
 
-    public void utils_tick() {
+    public static void utils_tick() {
 
     }
 

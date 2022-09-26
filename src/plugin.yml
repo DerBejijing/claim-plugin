@@ -1,0 +1,18 @@
+name: adopt
+version: 1.0
+api-version: 1.19
+author: Der_Bejijing
+prefix: Adopt
+website: https://github.com/DerBejijing/claim-plugin
+main: io.github.derbejijing.claim.Main
+commands:
+  claiminfo:
+    description: get help
+  claim:
+    description: claim the chunk you are in
+  unclaim:
+    description: unclaim the chunk you are in
+  listclaims:
+    description: see all claims by the specified team
+  claimsmap:
+    description: get a graphical representation of claimed chunks around you

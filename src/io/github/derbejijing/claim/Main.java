@@ -28,6 +28,8 @@ public class Main extends JavaPlugin {
         this.getCommand("unclaim").setExecutor(new Unclaim());
         this.getCommand("teamcreate").setExecutor(new TeamCreate());
         this.getCommand("teaminvite").setExecutor(new TeamInvite());
+        this.getCommand("teaminviteaccept").setExecutor(new TeamInvite());
+        this.getCommand("teaminvitedecline").setExecutor(new TeamInvite());
         this.getCommand("teamkick").setExecutor(new TeamKick());
         this.getCommand("teamleave").setExecutor(new TeamLeave());
         this.getCommand("teamlog").setExecutor(new TeamLog());

@@ -20,6 +20,10 @@ commands:
     description: create a new team
   teaminvite:
     description: invite a player to join your team
+  teaminviteaccept:
+    description: accept an invitation to join a team
+  teaminvitedecline:
+    description: decline an invitation to join a team 
   teamkick:
     description: kick a player from your team
   teamleave:

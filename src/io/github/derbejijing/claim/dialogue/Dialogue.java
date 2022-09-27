@@ -47,6 +47,9 @@ public abstract class Dialogue {
     public abstract void cancelMessage();
 
 
+    public abstract void successfulFinish();
+
+
     protected void sendMessageHeader() {
         this.sendMessage(this.header_title);
     }
@@ -86,7 +89,7 @@ public abstract class Dialogue {
     }
     
     protected void finish() {
-        this.sendMessage("done!");
+        this.successfulFinish();
         this.active = false;
     }
 

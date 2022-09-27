@@ -2,20 +2,21 @@ package io.github.derbejijing.claim.storage;
 
 public class TeamMember {
     
-    private String name;
-    private boolean may_invite_players;
-    private boolean may_kick_players;
-    private boolean may_claim_chunks;
+    public final String name;
+    public boolean leader;
+    public boolean permission_invite;
+    public boolean permission_promote;
+    public boolean permission_kick;
+    public boolean permission_claim;
 
-    public TeamMember(String name, boolean may_invite_players, boolean may_kick_players, boolean may_claim_chunks) {
+
+    public TeamMember(String name, boolean leader, boolean permission_invite, boolean permission_promote, boolean permission_kick, boolean permission_claim) {
         this.name = name;
-        this.may_invite_players = may_invite_players;
-        this.may_kick_players = may_kick_players;
-        this.may_claim_chunks = may_claim_chunks;
-    }
-
-    public String getName() {
-        return this.name;
+        this.leader = leader;
+        this.permission_invite = permission_invite;
+        this.permission_promote = permission_promote;
+        this.permission_kick = permission_kick;
+        this.permission_claim = permission_claim;
     }
 
 }

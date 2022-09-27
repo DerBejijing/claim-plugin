@@ -109,18 +109,18 @@ public class TeamCreateDialogue extends Dialogue {
                 this.team.permission_claim = answer.toLowerCase().contains("d");
 
                 this.sendMessageHeader();
-                this.sendMessage("Team name:     " + this.team.name);
+                this.sendMessage("Team name: " + this.team.name);
                 this.sendMessage("Team subtitle: " + this.team.subtitle);
-                this.sendMessage("Team domain:   " + this.team.domain);
+                this.sendMessage("Team domain: " + this.team.domain);
                 this.sendMessage("Team leader(s):");
                 
                 for(String s : this.team.getLeaders()) this.sendMessage(" " + s);
 
                 this.sendMessage("Team member permissions:");
-                this.sendMessage(" invite players:  " + this.team.permission_invite);
-                this.sendMessage(" promote players: " + this.team.permission_promote);
-                this.sendMessage(" kick players: " + this.team.permission_kick);
-                this.sendMessage(" claim chunks: " + this.team.permission_claim);
+                this.sendMessage(" invite players: " + (this.team.permission_invite ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
+                this.sendMessage(" promote players: " + (this.team.permission_promote ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
+                this.sendMessage(" kick players: " + (this.team.permission_kick ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
+                this.sendMessage(" claim chunks: " + (this.team.permission_claim ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
 
                 this.sendMessage("Send ok to create " + this.team.name);
                 this.sendMessage("Send cancel to quit");

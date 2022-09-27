@@ -15,11 +15,14 @@ import io.github.derbejijing.claim.command.TeamLog;
 import io.github.derbejijing.claim.command.Unclaim;
 import io.github.derbejijing.claim.dialogue.DialogueManager;
 import io.github.derbejijing.claim.event.ChatEvent;
+import io.github.derbejijing.claim.storage.DataStorage;
 
 public class Main extends JavaPlugin {
     
     @Override
     public void onEnable() {
+
+        DataStorage.storage_initialize("claim_data.txt");
 
         this.getCommand("claim").setExecutor(new Claim());
         this.getCommand("claiminfo").setExecutor(new ClaimInfo());
@@ -39,6 +42,7 @@ public class Main extends JavaPlugin {
             @Override
             public void run() {
                 DialogueManager.tick();
+                DataStorage.tick();
             }
         }.runTaskTimer(this, 0, 20);
 

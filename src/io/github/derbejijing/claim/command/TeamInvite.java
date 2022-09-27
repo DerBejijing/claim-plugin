@@ -30,6 +30,9 @@ public class TeamInvite implements CommandExecutor {
                 if(target == null) {
                     sender.sendMessage(ChatColor.RED + "That player is not online");
                     return true;
+                } if(DataStorage.request_already_made(sender.getName())) {
+                    sender.sendMessage(ChatColor.RED + "You cannot make multiple requests at once");
+                    return true;
                 }
                 else {
 
@@ -52,6 +55,8 @@ public class TeamInvite implements CommandExecutor {
 					target.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
 
                     sender.sendMessage(ChatColor.GOLD + "Request sent!");
+
+                    DataStorage.request_add(sender.getName(), target.getName());
 
                 }
             }

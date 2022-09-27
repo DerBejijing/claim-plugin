@@ -35,11 +35,11 @@ public class TeamInvite implements CommandExecutor {
 
                     TextComponent accept_msg = new TextComponent(ChatColor.GREEN + "[accept]");
 					accept_msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to accept").create()));
-					accept_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teamjoinaccept " + team));
+					accept_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teamjoinaccept " + sender.getName()));
 								
 					TextComponent decline_msg = new TextComponent(ChatColor.RED + "[decline]");
 					decline_msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to decline").create()));
-					decline_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teamjoindecline " + team));
+					decline_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teamjoindecline " + sender.getName()));
 								
 					accept_msg.addExtra(" ");
 					accept_msg.addExtra(decline_msg);

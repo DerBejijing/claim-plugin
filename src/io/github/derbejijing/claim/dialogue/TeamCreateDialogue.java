@@ -34,7 +34,10 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void parseAnswer(String answer) {
-        if(answer.toLowerCase().equals("cancel")) this.cancel();
+        if(answer.toLowerCase().equals("cancel")) {
+            this.cancel();
+            return;
+        }
 
         boolean advance = true;
 

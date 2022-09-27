@@ -3,6 +3,7 @@ package io.github.derbejijing.claim.dialogue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import io.github.derbejijing.claim.storage.DataStorage;
 import io.github.derbejijing.claim.storage.Team;
 import net.md_5.bungee.api.ChatColor;
 
@@ -82,13 +83,15 @@ public class TeamCreateDialogue extends Dialogue {
 
                 this.sendMessageHeader();
                 this.sendMessage("Name all leader members, separated");
-                this.sendMessage("by a whitespace \" \". For anarchy,");
-                this.sendMessage("There will be no leader.");
+                this.sendMessage("by a whitespace \" \". As founder,");
+                this.sendMessage("you will be added to the leaders.");
+                this.sendMessage("For anarchy, There will be no leader.");
                 this.sendMessageFooter();
                 break;
             case 4:
                 String[] members = answer.split(" ");
                 for(String member : members) this.team.addMember(member, true);
+                this.team.addMember(this.player.getName(), true);
 
                 this.sendMessageHeader();
                 this.sendMessage("Now set permissions for members.");
@@ -146,8 +149,10 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void successfulFinish() {
+        DataStorage.team_add(this.team);
+        this.sendMessageHeader();
         this.sendMessageColored(ChatColor.GOLD + "Successfully created team " + ChatColor.GRAY + this.team.name + ChatColor.GOLD + "!");
-        Bukkit.getLogger().info("created team");
+        this.sendMessageFooter();
     }
     
 }

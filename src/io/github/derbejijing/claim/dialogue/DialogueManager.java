@@ -2,6 +2,7 @@ package io.github.derbejijing.claim.dialogue;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class DialogueManager {
@@ -14,6 +15,12 @@ public class DialogueManager {
     }
 
 
+    public static void addDialogueTeamLeave(Player player) {
+        for(Dialogue d : DialogueManager.dialogues) if(d.player.equals(player)) return;
+        DialogueManager.dialogues.add(new TeamLeaveDialogue(player));
+    }
+
+
     public static void cancelDialogue(Player player) {
         for(Dialogue d : DialogueManager.dialogues) if(d.player.equals(player)) d.cancel();
     }
@@ -21,6 +28,7 @@ public class DialogueManager {
 
     public static boolean handleChatMessage(Player player, String message) {
         for(Dialogue d : DialogueManager.dialogues) if(d.player.equals(player)) {
+            Bukkit.getLogger().info("parse message: " + message);
             d.parseAnswer(message);
             return true;
         }

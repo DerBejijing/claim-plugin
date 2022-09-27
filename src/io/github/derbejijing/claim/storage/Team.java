@@ -2,8 +2,6 @@ package io.github.derbejijing.claim.storage;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
-
 public class Team {
 
     public String name;
@@ -64,5 +62,19 @@ public class Team {
     }
 
 
+    public void removeMember(String name) {
+        TeamMember remove = null;
+        for(TeamMember tm : this.members) if(tm.name.equals(name)) remove = tm;
+        this.members.remove(remove);
+    }
+
     
+    public int getMemberCount() {
+        return this.members.size();
+    }
+    
+
+    public ArrayList<TeamMember> getMembers() {
+        return this.members;
+    }
 }

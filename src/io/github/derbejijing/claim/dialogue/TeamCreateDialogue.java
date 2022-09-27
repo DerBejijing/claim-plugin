@@ -100,10 +100,10 @@ public class TeamCreateDialogue extends Dialogue {
                 this.sendMessageFooter();
                 break;
             case 5:
-                this.team.permission_invite = answer.toLowerCase().contains("A");
-                this.team.permission_promote = answer.toLowerCase().contains("B");
-                this.team.permission_kick = answer.toLowerCase().contains("C");
-                this.team.permission_claim = answer.toLowerCase().contains("D");
+                this.team.permission_invite = answer.toLowerCase().contains("a");
+                this.team.permission_promote = answer.toLowerCase().contains("b");
+                this.team.permission_kick = answer.toLowerCase().contains("c");
+                this.team.permission_claim = answer.toLowerCase().contains("d");
 
                 this.sendMessageHeader();
                 this.sendMessage("Team name:     " + this.team.name);

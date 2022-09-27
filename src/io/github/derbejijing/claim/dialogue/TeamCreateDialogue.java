@@ -1,6 +1,5 @@
 package io.github.derbejijing.claim.dialogue;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import io.github.derbejijing.claim.storage.DataStorage;

@@ -24,16 +24,25 @@ public class Team {
     }
 
     
-    public Team(String name, String subtitle, String domain) {
-        this.name = name;
-        this.subtitle = subtitle;
-        this.domain = domain;
+    public Team(String name, String subtitle, String domain, String permission_invite, String permission_promote, String permission_kick, String permission_claim) {
+        this.name = name.replace("-", " ");
+        this.subtitle = subtitle.replace("-", " ");
+        this.domain = domain.replace("-", " ");
+        this.permission_invite = Boolean.parseBoolean(permission_invite);
+        this.permission_promote = Boolean.parseBoolean(permission_promote);
+        this.permission_kick = Boolean.parseBoolean(permission_kick);
+        this.permission_claim = Boolean.parseBoolean(permission_claim);
         this.members = new ArrayList<TeamMember>();
     }
 
-
     public String getString() {
-        return "";
+        return "TEAM " + this.name.replace(" ", "-") +
+            " " + this.subtitle.replace(" ", "-") +
+            " " + this.domain.replace(" ", "-" +
+            " " + this.permission_invite +
+            " " + this.permission_promote +
+            " " + this.permission_kick +
+            " " + this.permission_claim);
     }
 
 

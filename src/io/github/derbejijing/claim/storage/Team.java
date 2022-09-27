@@ -32,6 +32,18 @@ public class Team {
     }
 
 
+    public String getString() {
+        return "";
+    }
+
+
+    public ArrayList<String> getMembershipStrings() {
+        ArrayList<String> tmp = new ArrayList<String>();
+        for(TeamMember tm : this.members) tmp.add(tm.getString());
+        return tmp;
+    }
+
+
     public void addMember(String player, boolean leader) {
         for(TeamMember tm : this.members) if(tm.name.equals(player)) return;
         this.members.add(new TeamMember(player, leader, permission_invite, permission_promote, permission_kick, permission_claim));

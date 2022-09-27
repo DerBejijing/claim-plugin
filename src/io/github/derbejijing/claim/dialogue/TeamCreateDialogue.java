@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import io.github.derbejijing.claim.storage.Team;
+import net.md_5.bungee.api.ChatColor;
 
 public class TeamCreateDialogue extends Dialogue {
 
@@ -11,7 +12,7 @@ public class TeamCreateDialogue extends Dialogue {
 
 
     public TeamCreateDialogue(Player player) {
-        super(player, 7, "create your team");
+        super(player, 6, "create your team");
         this.team = null;
     }
 
@@ -87,48 +88,42 @@ public class TeamCreateDialogue extends Dialogue {
                 for(String member : members) this.team.addMember(member, true);
 
                 this.sendMessageHeader();
-                this.sendMessage("Now set permissions for leaders.");
-                this.sendMessage("Name all abilities only the leader(s)");
+                this.sendMessage("Now set permissions for members.");
+                this.sendMessage("Name all abilities everyone");
                 this.sendMessage("will have and only send the index");
                 this.sendMessage("letters non-separated");
                 this.sendMessage("A) invite new players");
-                this.sendMessage("B) promote players / transfer domain");
+                this.sendMessage("B) promote players to leader");
                 this.sendMessage("C) kick players from the team");
                 this.sendMessage("D) claim area for the team");
                 this.sendMessage("E) none");
                 this.sendMessageFooter();
                 break;
             case 5:
-                this.team.permission_l_invite = answer.toLowerCase().contains("A");
-                this.team.permission_l_promote = answer.toLowerCase().contains("B");
-                this.team.permission_l_kick = answer.toLowerCase().contains("C");
-                this.team.permission_l_claim = answer.toLowerCase().contains("D");
+                this.team.permission_invite = answer.toLowerCase().contains("A");
+                this.team.permission_promote = answer.toLowerCase().contains("B");
+                this.team.permission_kick = answer.toLowerCase().contains("C");
+                this.team.permission_claim = answer.toLowerCase().contains("D");
 
                 this.sendMessageHeader();
-                this.sendMessage("Now set permissions for members.");
-                this.sendMessage("Name all abilities everybody");
-                this.sendMessage("will have and only send the index");
-                this.sendMessage("letters non-separated");
-                this.sendMessage("A) invite new players");
-                this.sendMessage("B) promote players / transfer domain");
-                this.sendMessage("C) kick players from the team");
-                this.sendMessage("D) claim area for the team");
-                this.sendMessage("E) none");
+                this.sendMessage("Team name:     " + this.team.name);
+                this.sendMessage("Team subtitle: " + this.team.subtitle);
+                this.sendMessage("Team domain:   " + this.team.domain);
+                this.sendMessage("Team leader(s):");
+                
+                for(String s : this.team.getLeaders()) this.sendMessage(" " + s);
+
+                this.sendMessage("Team member permissions:");
+                this.sendMessage(" invite players:  " + this.team.permission_invite);
+                this.sendMessage(" promote players: " + this.team.permission_promote);
+                this.sendMessage(" kick players: " + this.team.permission_kick);
+                this.sendMessage(" claim chunks: " + this.team.permission_claim);
+
+                this.sendMessage("Send ok to create " + this.team.name);
+                this.sendMessage("Send cancel to quit");
                 this.sendMessageFooter();
                 break;
             case 6:
-                this.team.permission_m_invite = answer.toLowerCase().contains("A");
-                this.team.permission_m_promote = answer.toLowerCase().contains("B");
-                this.team.permission_m_kick = answer.toLowerCase().contains("C");
-                this.team.permission_m_claim = answer.toLowerCase().contains("D");
-
-                this.sendMessageHeader();
-                this.sendMessage("Send ok to create " + this.team.name);
-                this.sendMessage("Send cancel to quit");
-                this.sendMessage("Here all data...");
-                this.sendMessageFooter();
-                break;
-            case 7:
                 if(!answer.toLowerCase().equals("ok")) {
                     this.cancel();
                     break;
@@ -148,7 +143,7 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void successfulFinish() {
-        this.sendMessage("Successfully created team " + this.team.name + "!");
+        this.sendMessageColored(ChatColor.GOLD + "Successfully created team " + ChatColor.GRAY + this.team.name + ChatColor.GOLD + "!");
         Bukkit.getLogger().info("created team");
     }
     

@@ -8,14 +8,10 @@ public class Team {
     public String subtitle;
     public String domain;
     
-    public boolean permission_l_invite;
-    public boolean permission_l_promote;
-    public boolean permission_l_kick;
-    public boolean permission_l_claim;
-    public boolean permission_m_invite;
-    public boolean permission_m_promote;
-    public boolean permission_m_kick;
-    public boolean permission_m_claim;
+    public boolean permission_invite;
+    public boolean permission_promote;
+    public boolean permission_kick;
+    public boolean permission_claim;
 
     private ArrayList<TeamMember> members;
 
@@ -38,8 +34,7 @@ public class Team {
 
     public void addMember(String player, boolean leader) {
         for(TeamMember tm : this.members) if(tm.name.equals(player)) return;
-        if(leader) this.members.add(new TeamMember(name, leader, permission_l_invite, permission_l_promote, permission_l_kick, permission_l_claim));
-        else this.members.add(new TeamMember(name, leader, permission_m_invite, permission_m_promote, permission_m_kick, permission_m_claim));
+        this.members.add(new TeamMember(name, leader, permission_invite, permission_promote, permission_kick, permission_claim));
     }
 
 
@@ -48,13 +43,16 @@ public class Team {
         for(TeamMember tm : this.members) if(tm.name.equals(player)) {
             found = true;
             tm.leader = true;
-            tm.permission_invite = permission_l_invite;
-            tm.permission_promote = permission_l_promote;
-            tm.permission_kick = permission_l_kick;
-            tm.permission_claim = permission_l_claim;
         }
         if(!found) return;
 
+    }
+
+
+    public ArrayList<String> getLeaders() {
+        ArrayList<String> tmp = new ArrayList<String>();
+        for(TeamMember tm : this.members) if(tm.leader) tmp.add(tm.name);
+        return tmp;
     }
 
 

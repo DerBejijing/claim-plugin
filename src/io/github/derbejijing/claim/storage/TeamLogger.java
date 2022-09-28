@@ -26,9 +26,12 @@ public class TeamLogger {
         try {
             this.team = team;
             this.log_day = LocalDate.now();
-            this.file_path = directory + "/" + team + "/";
+            this.file_path = directory + File.separator + team + File.separator;
             this.file = new File(this.file_path + this.log_day.format(this.dtf_file) + ".log");
-            if(!this.file.exists()) this.file.createNewFile();
+            if(!this.file.exists()) {
+                this.file.getParentFile().mkdirs();
+                this.file.createNewFile();
+            }
             Bukkit.getLogger().info("created logger for team " + team);
         } catch(Exception e) {
             e.printStackTrace();

@@ -23,11 +23,17 @@ public class TeamLogger {
 
 
     public TeamLogger(String directory, String team) {
-        this.team = team;
-        this.log_day = LocalDate.now();
-        this.file_path = directory + "/" + team + "/";
-        this.file = new File(this.file_path + this.log_day.format(this.dtf_file) + ".log");
-        Bukkit.getLogger().info("created logger for team " + team);
+        try {
+            this.team = team;
+            this.log_day = LocalDate.now();
+            this.file_path = directory + "/" + team + "/";
+            this.file = new File(this.file_path + this.log_day.format(this.dtf_file) + ".log");
+            if(!this.file.exists()) this.file.createNewFile();
+            Bukkit.getLogger().info("created logger for team " + team);
+        } catch(Exception e) {
+            e.printStackTrace();
+            Bukkit.getServer().shutdown();
+        }
     }
     
 

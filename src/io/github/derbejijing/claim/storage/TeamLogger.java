@@ -3,7 +3,7 @@ package io.github.derbejijing.claim.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,15 +17,15 @@ public class TeamLogger {
     private String file_path;
     private File file;
     
-    private LocalDate log_day;
+    private LocalDateTime log_day;
     private DateTimeFormatter dtf_file = DateTimeFormatter.ofPattern("yy-MM-dd");
-    private DateTimeFormatter dtf_log = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private DateTimeFormatter dtf_log = DateTimeFormatter.ISO_LOCAL_TIME;
 
 
     public TeamLogger(String directory, String team) {
         try {
             this.team = team;
-            this.log_day = LocalDate.now();
+            this.log_day = LocalDateTime.now();
             this.file_path = directory + File.separator + team + File.separator;
             this.file = new File(this.file_path + this.log_day.format(this.dtf_file) + ".log");
             if(!this.file.exists()) {
@@ -44,8 +44,8 @@ public class TeamLogger {
         try {
             FileWriter log_fw = new FileWriter(this.file, true);
             BufferedWriter log_bw = new BufferedWriter(log_fw);
-
-            String prefix = "[" + LocalDate.now().format(this.dtf_log) + "]: ";
+            
+            String prefix = "[" + LocalDateTime.now().format(this.dtf_log) + "]: ";
 
             log_bw.write(prefix + text + "\n");
             log_bw.close();
@@ -65,7 +65,7 @@ public class TeamLogger {
             if(daysBeforeNow == 0) {
                 f = this.file;
             } else {
-                LocalDate date = this.log_day.minusDays(daysBeforeNow);
+                LocalDateTime date = this.log_day.minusDays(daysBeforeNow);
                 f = new File(this.file_path + date.format(this.dtf_file) + ".log");
                 if(!f.exists()) return new ArrayList<String>();
             }
@@ -88,10 +88,10 @@ public class TeamLogger {
 
     public void tick() {
         try {
-            LocalDate now = LocalDate.now();
+            LocalDateTime now = LocalDateTime.now();
             if(now.getDayOfMonth() != log_day.getDayOfMonth()) {
                 this.file = new File(this.file_path + now.format(this.dtf_file) + ".log");
-                this.log_day = LocalDate.now();
+                this.log_day = LocalDateTime.now();
             }
         } catch(Exception e) {
             e.printStackTrace();

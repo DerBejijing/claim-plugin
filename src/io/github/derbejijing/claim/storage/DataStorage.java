@@ -3,10 +3,13 @@ package io.github.derbejijing.claim.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.bukkit.Bukkit;
+import org.bukkit.util.FileUtil;
 
 
 public class DataStorage {
@@ -67,7 +70,7 @@ public class DataStorage {
 
                 if(line.startsWith("TEAM") && spaces == 7) {
                     currentTeam = new Team(data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
-                    DataStorage.team_add(currentTeam);
+                    DataStorage.team_add(currentTeam, false);
                 }
 
                 if(line.startsWith("MEMBER") && spaces == 6) {
@@ -87,6 +90,15 @@ public class DataStorage {
     }
 
 
+    public static boolean delete_dir(File directory) {
+        File[] contents = directory.listFiles();
+        if(contents != null) {
+            for(File f : contents) delete_dir(f);
+        }
+        return directory.delete();
+    }
+
+
     public static ArrayList<Team> team_get_list() {
         return DataStorage.teams;
     }
@@ -97,9 +109,22 @@ public class DataStorage {
     }
 
 
-    public static void team_add(Team team) {
+    public static void team_add(Team team, boolean overwriteLogs) {
         for(Team t : DataStorage.teams) if(t.name.equals(team.name)) return;
         DataStorage.teams.add(team);
+
+        if(overwriteLogs) {
+            try {
+                if(Files.isDirectory(Paths.get(team_log_dir + File.separator + team.name))) {
+                    File directory = new File(team_log_dir + File.separator + team.name);
+                    delete_dir(directory);
+                }
+            } catch(Exception e) {
+                e.printStackTrace();
+                Bukkit.getServer().shutdown();
+            }
+        }
+
         DataStorage.team_logs.add(new TeamLogger(team_log_dir, team.name));
     }
 
@@ -154,6 +179,12 @@ public class DataStorage {
 
         DataStorage.teams.remove(team);
         DataStorage.team_logs.remove(teamLogger);
+    }
+
+
+    public static boolean team_exists(String team) {
+        for(Team t : DataStorage.teams) if(t.name.equals(team)) return true;
+        return false;
     }
 
 

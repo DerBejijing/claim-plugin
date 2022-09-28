@@ -43,6 +43,15 @@ public class TeamCreateDialogue extends Dialogue {
 
         switch(this.stage) {
             case 1:
+                if(DataStorage.team_exists(answer)) {
+                    this.sendMessageHeader();
+                    this.sendMessage("Great name, but that team already exists");
+                    this.sendMessage("Please choose another name");
+                    this.sendMessageFooter();
+                    advance = false;
+                    break;
+                }
+
                 this.team = new Team(answer);
 
                 this.sendMessageHeader();
@@ -135,7 +144,7 @@ public class TeamCreateDialogue extends Dialogue {
     public void successfulFinish() {
         this.team.addMember(this.player.getName(), true);
         
-        DataStorage.team_add(this.team);
+        DataStorage.team_add(this.team, true);
         DataStorage.team_log(this.team.name, this.player.getName() + " created the team");
 
         this.sendMessageHeader();

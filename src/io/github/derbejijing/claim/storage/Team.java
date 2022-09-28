@@ -70,9 +70,9 @@ public class Team {
     }
 
 
-    public ArrayList<String> getLeaders() {
-        ArrayList<String> tmp = new ArrayList<String>();
-        for(TeamMember tm : this.members) if(tm.leader) tmp.add(tm.name);
+    public ArrayList<TeamMember> getLeaders() {
+        ArrayList<TeamMember> tmp = new ArrayList<TeamMember>();
+        for(TeamMember tm : this.members) if(tm.leader) tmp.add(tm);
         return tmp;
     }
 

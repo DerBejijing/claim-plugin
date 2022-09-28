@@ -38,11 +38,11 @@ public class Team {
     public String getString() {
         return "TEAM " + this.name.replace(" ", "-") +
             " " + this.subtitle.replace(" ", "-") +
-            " " + this.domain.replace(" ", "-" +
+            " " + this.domain.replace(" ", "-") +
             " " + this.permission_invite +
             " " + this.permission_promote +
             " " + this.permission_kick +
-            " " + this.permission_claim);
+            " " + this.permission_claim;
     }
 
 

@@ -80,7 +80,7 @@ public class DataStorage {
 
 
     public static void storage_write_line(String line) throws IOException {
-        DataStorage.storage_fw.write(line);
+        DataStorage.storage_fw.write(line + "\n");
     }
 
 

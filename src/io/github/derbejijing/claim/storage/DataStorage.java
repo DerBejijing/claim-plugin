@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import org.bukkit.Bukkit;
 
+import io.github.derbejijing.claim.chunk.ChunkManager;
+
 
 public class DataStorage {
 
@@ -46,10 +48,14 @@ public class DataStorage {
             DataStorage.storage.delete();
             DataStorage.storage.createNewFile();
             DataStorage.storage_fw = new FileWriter(DataStorage.storage);
+            
             for(Team m : DataStorage.teams) {
                 storage_write_line(m.getString());
                 for(String s : m.getMembershipStrings()) storage_write_line(s);
             }
+
+            for(String s : ChunkManager.getChunksString()) storage_write_line(s);
+
             DataStorage.storage_fw.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -76,6 +82,10 @@ public class DataStorage {
 
                 if(line.startsWith("MEMBER") && spaces == 6) {
                     currentTeam.addMember(new TeamMember(data[1], data[2], data[3], data[4], data[5], data[6]));
+                }
+
+                if(line.startsWith("CHUNK") && spaces == 3) {
+                    ChunkManager.add_chunk(data[0], data[1], data[2]);
                 }
 
             }

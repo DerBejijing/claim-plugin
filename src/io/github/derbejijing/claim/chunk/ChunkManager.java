@@ -15,6 +15,13 @@ public class ChunkManager {
     private static ArrayList<ClaimChunk> chunks = new ArrayList<ClaimChunk>(); 
 
 
+    public static ArrayList<String> getChunksString() {
+        ArrayList<String> tmp = new ArrayList<String>();
+        for(ClaimChunk cp : ChunkManager.chunks) tmp.add("CHUNK " + cp.team + " " + cp.x + " " + cp.z);
+        return tmp;
+    }
+
+
     public static void handleMovement(Player player, Chunk chunk) {
         for(ChunkPlayer p : ChunkManager.players) if(p.name.equals(player.getName())) {
             if(p.claiming) {
@@ -73,6 +80,11 @@ public class ChunkManager {
     public static void add_chunk(ClaimChunk chunk) {
         for(ClaimChunk cc : ChunkManager.chunks) if(chunk.x == cc.x) if(chunk.z == cc.z) return;
         ChunkManager.chunks.add(chunk);
+    }
+
+
+    public static void add_chunk(String team, String x, String z) {
+        ChunkManager.chunks.add(new ClaimChunk(team, x, z));
     }
 
 

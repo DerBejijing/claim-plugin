@@ -26,7 +26,7 @@ public class PlayerEvent implements Listener {
     @EventHandler
     public void playerChangeChunk(PlayerMoveEvent e) {
         Player player = e.getPlayer();
-        if(!e.getTo().getChunk().equals(e.getTo().getChunk())) {
+        if(!e.getFrom().getChunk().equals(e.getTo().getChunk())) {
             ChunkManager.handleMovement(player, e.getTo().getChunk());
         }
     }

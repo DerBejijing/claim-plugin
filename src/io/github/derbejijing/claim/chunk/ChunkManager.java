@@ -2,7 +2,6 @@ package io.github.derbejijing.claim.chunk;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
@@ -31,12 +30,14 @@ public class ChunkManager {
             }
             if(in_enemy_terrain(player, chunk)) {
                 if(!p.in_enemy_terrain) {
-                    player.sendMessage("You have entered enemy terrain");
+                    player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain");
+                    DataStorage.team_log(getOwnerTeam(chunk), player.getName() + " has entered team property");
                     p.in_enemy_terrain = true;
                 }
             } else {
                 if(p.in_enemy_terrain) {
-                    player.sendMessage("You have left enemy terrain");
+                    player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain");
+                    DataStorage.team_log(getOwnerTeam(chunk), player.getName() + " has left team property");
                     p.in_enemy_terrain = false;
                 }
             }
@@ -64,9 +65,15 @@ public class ChunkManager {
         for(ClaimChunk cc : ChunkManager.chunks) if(cc.x == chunk.getX()) if(cc.z == chunk.getZ()) {
             Team t = DataStorage.team_get_by_player(player.getName());
             if(t == null) return true;
-            if(cc.team.equals(t.name)) return false;
+            if(!cc.team.equals(t.name)) return true;
         }
         return false;
+    }
+
+
+    public static String getOwnerTeam(Chunk chunk) {
+        for(ClaimChunk cc : ChunkManager.chunks) if(cc.x == chunk.getX()) if(cc.z == chunk.getZ()) return cc.team;
+        return "";
     }
 
 
@@ -80,6 +87,7 @@ public class ChunkManager {
             return;
         }
         DataStorage.team_player_claim_chunk(player.getName());
+        DataStorage.team_log(ChunkManager.getOwnerTeam(chunk), player.getName() + " has claimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
         ChunkManager.add_chunk(new ClaimChunk(DataStorage.team_get_by_player(player.getName()).name, chunk.getX(), chunk.getZ()));
     }
 
@@ -93,6 +101,8 @@ public class ChunkManager {
             player.sendMessage(ChatColor.RED + "Chunk not claimed or does not belong to you");
             return;
         }
+
+        DataStorage.team_log(ChunkManager.getOwnerTeam(chunk), player.getName() + " has unclaimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
         DataStorage.team_player_unclaim_chunk(player.getName());
         ChunkManager.chunks.remove(remove);
     }

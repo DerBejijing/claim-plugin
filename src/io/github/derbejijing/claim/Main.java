@@ -1,8 +1,11 @@
 package io.github.derbejijing.claim;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import io.github.derbejijing.claim.chunk.ChunkManager;
 import io.github.derbejijing.claim.command.Claim;
 import io.github.derbejijing.claim.command.ClaimInfo;
 import io.github.derbejijing.claim.command.ClaimsMap;
@@ -27,6 +30,8 @@ public class Main extends JavaPlugin {
 
         DataStorage.storage_initialize("claim_data.txt");
         DataStorage.storage_load();
+
+        for(Player player : Bukkit.getOnlinePlayers()) ChunkManager.add_player(player);
 
         this.getCommand("claim").setExecutor(new Claim());
         this.getCommand("claiminfo").setExecutor(new ClaimInfo());

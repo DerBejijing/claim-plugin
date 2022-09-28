@@ -276,6 +276,8 @@ public class DataStorage {
         ArrayList<TeamInviteRequest> requests_remove = new ArrayList<TeamInviteRequest>();
         for(TeamInviteRequest tir : DataStorage.requests) if(tir.timeout_reached()) requests_remove.add(tir);
         DataStorage.requests.removeAll(requests_remove);
+
+        for(TeamLogger tl : DataStorage.team_logs) tl.tick();
     }
 
 }

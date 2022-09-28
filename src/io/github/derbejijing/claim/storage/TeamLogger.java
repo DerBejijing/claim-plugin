@@ -3,8 +3,8 @@ package io.github.derbejijing.claim.storage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -18,14 +18,15 @@ public class TeamLogger {
     private File file;
     
     private LocalDate log_day;
-    private SimpleDateFormat sdf = new SimpleDateFormat("YY-MM-DD");
-    private SimpleDateFormat sdf_log = new SimpleDateFormat("HH:mm:ss");
+    private DateTimeFormatter dtf_file = DateTimeFormatter.ofPattern("yy-MM-dd");
+    private DateTimeFormatter dtf_log = DateTimeFormatter.ofPattern("HH:mm:ss");
 
 
     public TeamLogger(String directory, String team) {
+        this.team = team;
         this.log_day = LocalDate.now();
         this.file_path = directory + "/" + team + "/";
-        this.file = new File(this.file_path + sdf.format(this.log_day) + ".log");
+        this.file = new File(this.file_path + this.log_day.format(this.dtf_file) + ".log");
         Bukkit.getLogger().info("created logger for team " + team);
     }
     
@@ -35,7 +36,7 @@ public class TeamLogger {
             FileWriter log_fw = new FileWriter(this.file, true);
             BufferedWriter log_bw = new BufferedWriter(log_fw);
 
-            String prefix = "[" + this.sdf_log.format(LocalDate.now()) + "]: ";
+            String prefix = "[" + LocalDate.now().format(this.dtf_log) + "]: ";
 
             log_bw.write(prefix + text + "\n");
             log_bw.close();
@@ -56,7 +57,7 @@ public class TeamLogger {
                 f = this.file;
             } else {
                 LocalDate date = this.log_day.minusDays(daysBeforeNow);
-                f = new File(this.file_path + this.sdf.format(date) + ".log");
+                f = new File(this.file_path + date.format(this.dtf_file) + ".log");
                 if(!f.exists()) return new ArrayList<String>();
             }
 
@@ -80,7 +81,7 @@ public class TeamLogger {
         try {
             LocalDate now = LocalDate.now();
             if(now.getDayOfMonth() != log_day.getDayOfMonth()) {
-                this.file = new File(this.file_path + this.sdf.format(now) + ".log");
+                this.file = new File(this.file_path + now.format(this.dtf_file) + ".log");
                 this.log_day = LocalDate.now();
             }
         } catch(Exception e) {

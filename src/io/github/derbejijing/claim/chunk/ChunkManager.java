@@ -72,7 +72,7 @@ public class ChunkManager {
 
     public static void add_chunk(ClaimChunk chunk) {
         for(ClaimChunk cc : ChunkManager.chunks) if(chunk.x == cc.x) if(chunk.z == cc.z) return;
-        ChunkManager.add_chunk(chunk);
+        ChunkManager.chunks.add(chunk);
     }
 
 

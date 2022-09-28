@@ -12,7 +12,7 @@ public class TeamCreateDialogue extends Dialogue {
 
 
     public TeamCreateDialogue(Player player) {
-        super(player, 6, "create your team");
+        super(player, 5, "create your team");
         this.team = null;
     }
 
@@ -81,18 +81,6 @@ public class TeamCreateDialogue extends Dialogue {
                 }
 
                 this.sendMessageHeader();
-                this.sendMessage("Name all leader members, separated");
-                this.sendMessage("by a whitespace \" \". As founder,");
-                this.sendMessage("you will be added to the leaders.");
-                this.sendMessage("For anarchy, There will be no leader.");
-                this.sendMessageFooter();
-                break;
-            case 4:
-                String[] members = answer.split(" ");
-                for(String member : members) this.team.addMember(member, true);
-                this.team.addMember(this.player.getName(), true);
-
-                this.sendMessageHeader();
                 this.sendMessage("Now set permissions for members.");
                 this.sendMessage("Name all abilities everyone");
                 this.sendMessage("will have and only send the index");
@@ -104,7 +92,7 @@ public class TeamCreateDialogue extends Dialogue {
                 this.sendMessage("E) none");
                 this.sendMessageFooter();
                 break;
-            case 5:
+            case 4:
                 this.team.permission_invite = answer.toLowerCase().contains("a");
                 this.team.permission_promote = answer.toLowerCase().contains("b");
                 this.team.permission_kick = answer.toLowerCase().contains("c");
@@ -114,9 +102,6 @@ public class TeamCreateDialogue extends Dialogue {
                 this.sendMessage("Team name: " + this.team.name);
                 this.sendMessage("Team subtitle: " + this.team.subtitle);
                 this.sendMessage("Team domain: " + this.team.domain);
-                this.sendMessage("Team leader(s):");
-                
-                for(String s : this.team.getLeaders()) this.sendMessage(" " + s);
 
                 this.sendMessage("Team member permissions:");
                 this.sendMessage(" invite players: " + (this.team.permission_invite ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
@@ -128,7 +113,7 @@ public class TeamCreateDialogue extends Dialogue {
                 this.sendMessage("Send cancel to quit");
                 this.sendMessageFooter();
                 break;
-            case 6:
+            case 5:
                 if(!answer.toLowerCase().equals("ok")) {
                     this.cancel();
                     break;
@@ -148,6 +133,7 @@ public class TeamCreateDialogue extends Dialogue {
 
     @Override
     public void successfulFinish() {
+        this.team.addMember(this.player.getName(), true);
         DataStorage.team_add(this.team);
         this.sendMessageHeader();
         this.sendMessageColored(ChatColor.GOLD + "Successfully created team " + ChatColor.GRAY + this.team.name + ChatColor.GOLD + "!");

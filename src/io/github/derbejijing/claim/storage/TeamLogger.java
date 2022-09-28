@@ -32,11 +32,11 @@ public class TeamLogger {
                 this.file.getParentFile().mkdirs();
                 this.file.createNewFile();
             }
-            Bukkit.getLogger().info("created logger for team " + team);
         } catch(Exception e) {
             e.printStackTrace();
             Bukkit.getServer().shutdown();
         }
+        this.log("logger started");
     }
     
 

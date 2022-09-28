@@ -26,6 +26,7 @@ public class ChunkManager {
         for(ChunkPlayer p : ChunkManager.players) if(p.name.equals(player.getName())) {
             if(p.claiming) {
                 if(DataStorage.team_player_can_claim(player.getName())) claim_chunk(player, chunk);
+                else player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
             }
             if(in_enemy_terrain(player, chunk)) {
                 if(!p.in_enemy_terrain) {
@@ -73,7 +74,23 @@ public class ChunkManager {
             player.sendMessage(ChatColor.RED + "Chunk already claimed");
             return;
         }
+        if(!DataStorage.team_player_can_claim(player.getName())) {
+            player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
+        }
         ChunkManager.add_chunk(new ClaimChunk(DataStorage.team_get_by_player(player.getName()).name, chunk.getX(), chunk.getZ()));
+    }
+
+
+    public static void unclaim_chunk(Player player, Chunk chunk) {
+        Team team = DataStorage.team_get_by_player(player.getName());
+        if(team == null) return;
+        ClaimChunk remove = null;
+        for(ClaimChunk cc : ChunkManager.chunks) if(chunk.getX() == cc.x) if(chunk.getZ() == cc.z) if(cc.team.equals(team.name)) remove = cc;
+        if(remove == null) {
+            player.sendMessage(ChatColor.RED + "Chunk not claimed or does not belong to you");
+            return;
+        }
+        ChunkManager.chunks.remove(remove);
     }
 
 

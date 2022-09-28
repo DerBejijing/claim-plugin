@@ -14,18 +14,19 @@ public class Claim implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player) {
+            if(DataStorage.team_get_by_player(sender.getName()) == null) {
+                sender.sendMessage(ChatColor.RED + "You are not in a team");
+                return true;
+            }
+
             if(args.length == 0) {
-                if(DataStorage.team_get_by_player(sender.getName()) == null) {
-                    sender.sendMessage(ChatColor.RED + "You are not in a team");
-                    return true;
-                }
                 ChunkManager.claim_chunk((Player)sender, ((Player)sender).getLocation().getChunk());
             }
             else if(args.length == 1) {
                 if(args[0] == "start") {
-
+                    ChunkManager.start_claiming((Player)sender);
                 } else if(args[0] == "stop") {
-
+                    ChunkManager.stop_claiming((Player)sender);
                 } else return false;
             }
         }

@@ -23,6 +23,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
 
         DataStorage.storage_initialize("claim_data.txt");
+        DataStorage.storage_load();
 
         this.getCommand("claim").setExecutor(new Claim());
         this.getCommand("claiminfo").setExecutor(new ClaimInfo());
@@ -50,6 +51,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        DataStorage.storage_save();
     }
 
 }

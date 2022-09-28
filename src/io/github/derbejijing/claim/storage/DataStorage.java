@@ -139,7 +139,16 @@ public class DataStorage {
     public static boolean team_player_can_claim(String name) {
         Team team = DataStorage.team_get_by_player(name);
         if(team == null) return false;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
         return team.claimed_chunks < DataStorage.chunks_per_member * team.getMemberCount();
+    }
+
+
+    public static boolean team_player_can_unclaim(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return false;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
+        return true;
     }
 
 

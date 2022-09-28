@@ -83,7 +83,7 @@ public class ChunkManager {
             return;
         }
         if(!DataStorage.team_player_can_claim(player.getName())) {
-            player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
+            player.sendMessage(ChatColor.RED + "You cannot claim more chunks ore are not permitted to do so");
             return;
         }
         DataStorage.team_player_claim_chunk(player.getName());
@@ -93,6 +93,9 @@ public class ChunkManager {
 
 
     public static void unclaim_chunk(Player player, Chunk chunk) {
+        if(!DataStorage.team_player_can_unclaim(player.getName())) {
+            player.sendMessage(ChatColor.RED + "You are not permitted to unclaim chunks");
+        }
         Team team = DataStorage.team_get_by_player(player.getName());
         if(team == null) return;
         ClaimChunk remove = null;

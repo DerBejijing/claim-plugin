@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.bukkit.Bukkit;
-import org.bukkit.util.FileUtil;
 
 
 public class DataStorage {
@@ -24,6 +23,8 @@ public class DataStorage {
     private static ArrayList<Team> teams = new ArrayList<Team>();
     private static ArrayList<TeamLogger> team_logs = new ArrayList<TeamLogger>();
     private static ArrayList<TeamInviteRequest> requests = new ArrayList<TeamInviteRequest>();
+
+    public static final int chunks_per_member = 50;
 
 
     public static void storage_initialize(String filename) {
@@ -101,6 +102,34 @@ public class DataStorage {
 
     public static ArrayList<Team> team_get_list() {
         return DataStorage.teams;
+    }
+
+
+    public static int team_claimed_chunks(String team_name) {
+        Team team = DataStorage.team_get_by_name(team_name);
+        if(team == null) return 0;
+        return team.claimed_chunks;
+    }
+
+
+    public static void team_player_claim_chunk(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return;
+        ++team.claimed_chunks;
+    }
+
+
+    public static void team_player_unclaim_chunk(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return;
+        --team.claimed_chunks;
+    }
+
+
+    public static boolean team_player_can_claim(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return false;
+        return team.claimed_chunks < DataStorage.chunks_per_member * team.getMemberCount();
     }
 
 

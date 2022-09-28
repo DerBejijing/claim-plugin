@@ -15,6 +15,8 @@ public class Team {
 
     private ArrayList<TeamMember> members;
 
+    public int claimed_chunks;
+
 
     public Team(String name) {
         this.name = name;

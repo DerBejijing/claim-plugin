@@ -16,7 +16,10 @@ public class DataStorage {
     private static Scanner storage_fr;
     private static boolean initialized = false;
 
+    private static String team_log_dir = "team_logs";
+
     private static ArrayList<Team> teams = new ArrayList<Team>();
+    private static ArrayList<TeamLogger> team_logs = new ArrayList<TeamLogger>();
     private static ArrayList<TeamInviteRequest> requests = new ArrayList<TeamInviteRequest>();
 
 
@@ -97,6 +100,7 @@ public class DataStorage {
     public static void team_add(Team team) {
         for(Team t : DataStorage.teams) if(t.name.equals(team.name)) return;
         DataStorage.teams.add(team);
+        DataStorage.team_logs.add(new TeamLogger(team_log_dir, team.name));
     }
 
     
@@ -129,7 +133,27 @@ public class DataStorage {
 
         team.removeMember(member.name);
 
-        if(deleteTeam) DataStorage.teams.remove(team);
+        DataStorage.team_log(team.name, name + " left the team");
+
+        if(deleteTeam) {
+            DataStorage.team_delete(team.name);
+        }
+    }
+
+
+    public static void team_delete(String teamName) {
+        Team team = null;
+        TeamLogger teamLogger = null;
+
+        for(Team t : DataStorage.teams) if(t.name.equals(teamName)) team = t;
+        for(TeamLogger tl : DataStorage.team_logs) if(tl.team.equals(teamName)) teamLogger = tl;
+
+        if(team == null || teamLogger == null) return;
+
+        teamLogger.log("Team has been deleted");
+
+        DataStorage.teams.remove(team);
+        DataStorage.team_logs.remove(teamLogger);
     }
 
 
@@ -137,12 +161,19 @@ public class DataStorage {
         Team teamJoin = team_get_by_name(team);
         if(teamJoin == null) return;
         teamJoin.addMember(name, false);
+
+        DataStorage.team_log(team, name + " joined the team");
     }
 
 
     public static boolean team_player_in_team(String name) {
         if(DataStorage.team_get_by_player(name) == null) return false;
         return true;
+    }
+
+
+    public static void team_log(String team, String text) {
+        for(TeamLogger tl : DataStorage.team_logs) if(tl.team.equals(team)) tl.log(text);
     }
 
 

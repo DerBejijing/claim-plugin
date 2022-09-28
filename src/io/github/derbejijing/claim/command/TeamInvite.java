@@ -57,6 +57,7 @@ public class TeamInvite implements CommandExecutor {
                     sender.sendMessage(ChatColor.GOLD + "Request sent!");
 
                     DataStorage.request_add(sender.getName(), target.getName());
+                    DataStorage.team_log(team, sender.getName() + " invited " + target.getName() + " to join the team");
 
                 }
             }

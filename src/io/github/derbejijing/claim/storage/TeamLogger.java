@@ -20,12 +20,13 @@ public class TeamLogger {
     private LocalDate log_day;
     private SimpleDateFormat sdf = new SimpleDateFormat("YY-MM-DD");
     private SimpleDateFormat sdf_log = new SimpleDateFormat("HH:mm:ss");
-    
+
 
     public TeamLogger(String directory, String team) {
         this.log_day = LocalDate.now();
         this.file_path = directory + "/" + team + "/";
         this.file = new File(this.file_path + sdf.format(this.log_day) + ".log");
+        Bukkit.getLogger().info("created logger for team " + team);
     }
     
 

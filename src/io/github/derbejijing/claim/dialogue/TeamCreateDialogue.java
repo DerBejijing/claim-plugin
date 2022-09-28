@@ -134,7 +134,10 @@ public class TeamCreateDialogue extends Dialogue {
     @Override
     public void successfulFinish() {
         this.team.addMember(this.player.getName(), true);
+        
         DataStorage.team_add(this.team);
+        DataStorage.team_log(this.team.name, this.player.getName() + " created the team");
+
         this.sendMessageHeader();
         this.sendMessageColored(ChatColor.GOLD + "Successfully created team " + ChatColor.GRAY + this.team.name + ChatColor.GOLD + "!");
         this.sendMessageFooter();

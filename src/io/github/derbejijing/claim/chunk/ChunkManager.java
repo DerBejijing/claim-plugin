@@ -2,6 +2,7 @@ package io.github.derbejijing.claim.chunk;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 
@@ -76,7 +77,9 @@ public class ChunkManager {
         }
         if(!DataStorage.team_player_can_claim(player.getName())) {
             player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
+            return;
         }
+        DataStorage.team_player_claim_chunk(player.getName());
         ChunkManager.add_chunk(new ClaimChunk(DataStorage.team_get_by_player(player.getName()).name, chunk.getX(), chunk.getZ()));
     }
 
@@ -90,6 +93,7 @@ public class ChunkManager {
             player.sendMessage(ChatColor.RED + "Chunk not claimed or does not belong to you");
             return;
         }
+        DataStorage.team_player_unclaim_chunk(player.getName());
         ChunkManager.chunks.remove(remove);
     }
 
@@ -101,7 +105,10 @@ public class ChunkManager {
 
 
     public static void add_chunk(String team, String x, String z) {
+        Team t = DataStorage.team_get_by_name(team);
+        if(team == null) return;
         ChunkManager.chunks.add(new ClaimChunk(team, x, z));
+        ++t.claimed_chunks;
     }
 
 

@@ -66,7 +66,7 @@ public class ChunkManager {
             player.sendMessage(ChatColor.RED + "Chunk already claimed");
             return;
         }
-        ChunkManager.add_chunk(new ClaimChunk(DataStorage.team_get_by_name(player.getName()).name, chunk.getX(), chunk.getZ()));
+        ChunkManager.add_chunk(new ClaimChunk(DataStorage.team_get_by_player(player.getName()).name, chunk.getX(), chunk.getZ()));
     }
 
 

@@ -18,6 +18,8 @@ commands:
     description: get a graphical representation of claimed chunks around you
   teamcreate:
     description: create a new team
+  teaminfo:
+    description: display information about a/your team
   teaminvite:
     description: invite a player to join your team
   teaminviteaccept:

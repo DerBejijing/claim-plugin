@@ -8,6 +8,7 @@ import io.github.derbejijing.claim.command.ClaimInfo;
 import io.github.derbejijing.claim.command.ClaimsMap;
 import io.github.derbejijing.claim.command.ListClaims;
 import io.github.derbejijing.claim.command.TeamCreate;
+import io.github.derbejijing.claim.command.TeamInfo;
 import io.github.derbejijing.claim.command.TeamInvite;
 import io.github.derbejijing.claim.command.TeamKick;
 import io.github.derbejijing.claim.command.TeamLeave;
@@ -31,6 +32,7 @@ public class Main extends JavaPlugin {
         this.getCommand("listclaims").setExecutor(new ListClaims());
         this.getCommand("unclaim").setExecutor(new Unclaim());
         this.getCommand("teamcreate").setExecutor(new TeamCreate());
+        this.getCommand("teaminfo").setExecutor(new TeamInfo());
         this.getCommand("teaminvite").setExecutor(new TeamInvite());
         this.getCommand("teaminviteaccept").setExecutor(new TeamInvite());
         this.getCommand("teaminvitedecline").setExecutor(new TeamInvite());

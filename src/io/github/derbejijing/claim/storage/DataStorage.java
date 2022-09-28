@@ -85,7 +85,7 @@ public class DataStorage {
                 }
 
                 if(line.startsWith("CHUNK") && spaces == 3) {
-                    ChunkManager.add_chunk(data[0], data[1], data[2]);
+                    ChunkManager.add_chunk(data[1], data[2], data[3]);
                 }
 
             }

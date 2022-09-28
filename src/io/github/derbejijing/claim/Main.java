@@ -12,6 +12,7 @@ import io.github.derbejijing.claim.command.TeamInfo;
 import io.github.derbejijing.claim.command.TeamInvite;
 import io.github.derbejijing.claim.command.TeamKick;
 import io.github.derbejijing.claim.command.TeamLeave;
+import io.github.derbejijing.claim.command.TeamList;
 import io.github.derbejijing.claim.command.TeamLog;
 import io.github.derbejijing.claim.command.Unclaim;
 import io.github.derbejijing.claim.dialogue.DialogueManager;
@@ -38,6 +39,7 @@ public class Main extends JavaPlugin {
         this.getCommand("teaminvitedecline").setExecutor(new TeamInvite());
         this.getCommand("teamkick").setExecutor(new TeamKick());
         this.getCommand("teamleave").setExecutor(new TeamLeave());
+        this.getCommand("teamlist").setExecutor(new TeamList());
         this.getCommand("teamlog").setExecutor(new TeamLog());
 
         this.getServer().getPluginManager().registerEvents(new ChatEvent(), this);

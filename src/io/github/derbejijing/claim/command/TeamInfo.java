@@ -37,9 +37,10 @@ public class TeamInfo implements CommandExecutor {
         sender.sendMessage(ChatColor.GRAY + "Team subtitle: " + team.subtitle);
         sender.sendMessage(ChatColor.GRAY + "Team domain: " + team.domain);
         sender.sendMessage(ChatColor.GRAY + "Team leader(s):");
-        for(TeamMember tm : team.getLeaders()) sender.sendMessage(" " + tm.name);
+        for(TeamMember tm : team.getLeaders()) sender.sendMessage(ChatColor.GRAY + " " + tm.name);
         sender.sendMessage(ChatColor.GRAY + "Team member(s):");
-        for(TeamMember tm : team.getMembers()) sender.sendMessage(" " + tm.name);
+        for(TeamMember tm : team.getMembers()) sender.sendMessage(ChatColor.GRAY + " " + tm.name);
+        sender.sendMessage(ChatColor.GREEN + "----------------------------------------");
 
         return true;
     }

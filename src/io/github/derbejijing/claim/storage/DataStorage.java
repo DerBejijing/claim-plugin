@@ -84,6 +84,16 @@ public class DataStorage {
     }
 
 
+    public static ArrayList<Team> team_get_list() {
+        return DataStorage.teams;
+    }
+
+
+    public static int team_get_count() {
+        return DataStorage.teams.size();
+    }
+
+
     public static void team_add(Team team) {
         for(Team t : DataStorage.teams) if(t.name.equals(team.name)) return;
         DataStorage.teams.add(team);

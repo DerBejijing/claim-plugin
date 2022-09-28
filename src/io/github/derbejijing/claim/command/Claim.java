@@ -8,7 +8,14 @@ public class Claim implements CommandExecutor {
     
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return false;
+        if(args.length == 1) {
+            if(args[0] == "start") {
+
+            } else if(args[0] == "stop") {
+
+            } else return false;
+        }
+        return true;
     }
 
 }

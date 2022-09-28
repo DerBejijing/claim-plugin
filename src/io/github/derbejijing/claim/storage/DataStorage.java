@@ -113,7 +113,7 @@ public class DataStorage {
             for(TeamMember tm : t.getMembers()) if(tm.name.equals(name)) {
                 team = t;
                 member = tm;
-                if(t.getMemberCount() == 0) deleteTeam = true;
+                if(t.getMemberCount() == 1) deleteTeam = true;
             }
         }
 

@@ -17,6 +17,7 @@ import io.github.derbejijing.claim.command.TeamLog;
 import io.github.derbejijing.claim.command.Unclaim;
 import io.github.derbejijing.claim.dialogue.DialogueManager;
 import io.github.derbejijing.claim.event.ChatEvent;
+import io.github.derbejijing.claim.event.PlayerEvent;
 import io.github.derbejijing.claim.storage.DataStorage;
 
 public class Main extends JavaPlugin {
@@ -43,6 +44,8 @@ public class Main extends JavaPlugin {
         this.getCommand("teamlog").setExecutor(new TeamLog());
 
         this.getServer().getPluginManager().registerEvents(new ChatEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerEvent(), this);
+
         new BukkitRunnable() {       
             @Override
             public void run() {

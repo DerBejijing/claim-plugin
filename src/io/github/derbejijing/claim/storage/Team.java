@@ -60,7 +60,7 @@ public class Team {
 
     public void addMember(String player, boolean leader) {
         for(TeamMember tm : this.members) if(tm.name.equals(player)) return;
-        this.members.add(new TeamMember(player, leader, permission_invite, permission_promote, permission_kick, permission_claim));
+        this.members.add(new TeamMember(player, leader, permission_invite, permission_promote, permission_kick, permission_claim, permission_log));
     }
 
 

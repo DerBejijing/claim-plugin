@@ -80,8 +80,8 @@ public class DataStorage {
                     DataStorage.team_add(currentTeam, false);
                 }
 
-                if(line.startsWith("MEMBER") && spaces == 6) {
-                    currentTeam.addMember(new TeamMember(data[1], data[2], data[3], data[4], data[5], data[6]));
+                if(line.startsWith("MEMBER") && spaces == 7) {
+                    currentTeam.addMember(new TeamMember(data[1], data[2], data[3], data[4], data[5], data[6], data[7]));
                 }
 
                 if(line.startsWith("CHUNK") && spaces == 3) {
@@ -145,7 +145,7 @@ public class DataStorage {
     public static boolean team_player_can_claim(String name) {
         Team team = DataStorage.team_get_by_player(name);
         if(team == null) return false;
-        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return (tm.permission_claim || tm.leader);
         return team.claimed_chunks < DataStorage.chunks_per_member * team.getMemberCount();
     }
 
@@ -153,7 +153,7 @@ public class DataStorage {
     public static boolean team_player_can_view_log(String name) {
         Team team = DataStorage.team_get_by_player(name);
         if(team == null) return false;
-        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return (tm.permission_claim || tm.leader);
         return false;
     }
 
@@ -161,7 +161,7 @@ public class DataStorage {
     public static boolean team_player_can_unclaim(String name) {
         Team team = DataStorage.team_get_by_player(name);
         if(team == null) return false;
-        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return (tm.permission_claim || tm.leader);
         return true;
     }
 

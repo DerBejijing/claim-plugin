@@ -41,7 +41,9 @@ public class TeamInfo implements CommandExecutor {
         sender.sendMessage(ChatColor.GRAY + "Team member(s):");
         for(TeamMember tm : team.getMembers()) sender.sendMessage(ChatColor.GRAY + " " + tm.name);
 
-        if(DataStorage.team_get_by_player(sender.getName()).equals(team)) {
+
+        Team senderTeam = DataStorage.team_get_by_player(sender.getName());
+        if(senderTeam != null) if(senderTeam.equals(team)) {
             sender.sendMessage(ChatColor.GRAY + "Team member permissions: ");
             sender.sendMessage(ChatColor.GRAY + " invite players: " + (team.permission_invite ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
             sender.sendMessage(ChatColor.GRAY + " promote players: " + (team.permission_promote ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));

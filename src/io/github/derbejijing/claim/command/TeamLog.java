@@ -28,7 +28,12 @@ public class TeamLog implements CommandExecutor {
             }
 
             int daysBeforeNow = 0;
-            if(args.length == 1) daysBeforeNow = Integer.parseInt(args[0]);
+            try {
+                if(args.length == 1) daysBeforeNow = Integer.parseInt(args[0]);
+            } catch(Exception e) {
+                sender.sendMessage(ChatColor.GRAY + "Log file is empty");
+                return true;
+            }
 
             ArrayList<String> log = DataStorage.team_get_log(team.name, daysBeforeNow);
             if(log.size() == 0) {

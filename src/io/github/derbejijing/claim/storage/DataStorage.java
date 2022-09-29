@@ -158,6 +158,14 @@ public class DataStorage {
     }
 
 
+    public static boolean team_player_can_kick(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return false;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return (tm.permission_kick || tm.leader);
+        return false;
+    }
+
+
     public static boolean team_player_can_unclaim(String name) {
         Team team = DataStorage.team_get_by_player(name);
         if(team == null) return false;

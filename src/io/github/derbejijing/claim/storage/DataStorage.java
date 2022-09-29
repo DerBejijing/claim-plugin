@@ -174,6 +174,22 @@ public class DataStorage {
     }
 
 
+    public static boolean team_player_can_invite(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return false;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return (tm.permission_invite || tm.leader);
+        return true;
+    }
+
+
+    public static boolean team_player_can_promote(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return false;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return (tm.permission_promote || tm.leader);
+        return true;
+    }
+
+
     public static int team_get_count() {
         return DataStorage.teams.size();
     }

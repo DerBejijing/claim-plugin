@@ -64,14 +64,18 @@ public class Team {
     }
 
 
-    public void setLeader(String player) {
-        boolean found = false;
-        for(TeamMember tm : this.members) if(tm.name.equals(player)) {
-            found = true;
-            tm.leader = true;
+    public void setLeader(String player, boolean transfer) {
+        for(TeamMember tm : this.members) {
+            if(tm.name.equals(player)) tm.leader = true;
+            else if(transfer) tm.leader = false;
         }
-        if(!found) return;
+    }
 
+
+    public void degradeLeader(String player) {
+        for(TeamMember tm : this.members) {
+            if(tm.name.equals(player)) tm.leader = false;
+        }
     }
 
 

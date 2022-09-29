@@ -17,6 +17,7 @@ import io.github.derbejijing.claim.command.TeamKick;
 import io.github.derbejijing.claim.command.TeamLeave;
 import io.github.derbejijing.claim.command.TeamList;
 import io.github.derbejijing.claim.command.TeamLog;
+import io.github.derbejijing.claim.command.TeamPromotion;
 import io.github.derbejijing.claim.command.Unclaim;
 import io.github.derbejijing.claim.dialogue.DialogueManager;
 import io.github.derbejijing.claim.event.ChatEvent;
@@ -47,6 +48,7 @@ public class Main extends JavaPlugin {
         this.getCommand("teamleave").setExecutor(new TeamLeave());
         this.getCommand("teamlist").setExecutor(new TeamList());
         this.getCommand("teamlog").setExecutor(new TeamLog());
+        this.getCommand("teampromotion").setExecutor(new TeamPromotion());
 
         this.getServer().getPluginManager().registerEvents(new ChatEvent(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerEvent(), this);

@@ -33,16 +33,18 @@ public class TeamInvite implements CommandExecutor {
                 } if(DataStorage.request_already_made(sender.getName())) {
                     sender.sendMessage(ChatColor.RED + "You cannot make multiple requests at once");
                     return true;
+                } if(sender.getName().equals(args[0])) {
+                    sender.sendMessage(ChatColor.RED + "You cannot invite yourself");
                 }
                 else {
 
                     TextComponent accept_msg = new TextComponent(ChatColor.GREEN + "[accept]");
 					accept_msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to accept").create()));
-					accept_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teamjoinaccept " + sender.getName()));
+					accept_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teaminviteaccept " + sender.getName()));
 								
 					TextComponent decline_msg = new TextComponent(ChatColor.RED + "[decline]");
 					decline_msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to decline").create()));
-					decline_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teamjoindecline " + sender.getName()));
+					decline_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teaminviteecline " + sender.getName()));
 								
 					accept_msg.addExtra(" ");
 					accept_msg.addExtra(decline_msg);

@@ -32,7 +32,7 @@ public class TeamInfo implements CommandExecutor {
             }
         } else return false;
 
-        sender.sendMessage(ChatColor.GREEN + "----------------------------------------");
+        sender.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
         sender.sendMessage(ChatColor.GRAY + "Team name: " + team.name);
         sender.sendMessage(ChatColor.GRAY + "Team subtitle: " + team.subtitle);
         sender.sendMessage(ChatColor.GRAY + "Team domain: " + team.domain);
@@ -51,8 +51,8 @@ public class TeamInfo implements CommandExecutor {
             sender.sendMessage(ChatColor.GRAY + " claim chunks: " + (team.permission_claim ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
             sender.sendMessage(ChatColor.GRAY + " view team log: " + (team.permission_log ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
         }
-
-        sender.sendMessage(ChatColor.GREEN + "----------------------------------------");
+        sender.sendMessage("Claimed chunks: " + team.claimed_chunks + "/" + DataStorage.chunks_per_member * team.getMemberCount());
+        sender.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
 
         return true;
     }

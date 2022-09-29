@@ -2,7 +2,10 @@ package io.github.derbejijing.claim.chunk;
 
 import java.util.ArrayList;
 
+import javax.xml.catalog.CatalogException;
+
 import org.bukkit.Chunk;
+import org.bukkit.Color;
 import org.bukkit.entity.Player;
 
 import io.github.derbejijing.claim.storage.DataStorage;
@@ -88,8 +91,9 @@ public class ChunkManager {
             return;
         }
         DataStorage.team_player_claim_chunk(player.getName());
-        DataStorage.team_log(ChunkManager.getOwnerTeam(chunk), player.getName() + " has claimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
         ChunkManager.add_chunk(new ClaimChunk(DataStorage.team_get_by_player(player.getName()).name, chunk.getX(), chunk.getZ()));
+        DataStorage.team_log(ChunkManager.getOwnerTeam(chunk), player.getName() + " has claimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
+        player.sendMessage(ChatColor.GRAY + "claimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
     }
 
 
@@ -109,6 +113,7 @@ public class ChunkManager {
         DataStorage.team_log(ChunkManager.getOwnerTeam(chunk), player.getName() + " has unclaimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
         DataStorage.team_player_unclaim_chunk(player.getName());
         ChunkManager.chunks.remove(remove);
+        player.sendMessage(ChatColor.GRAY + "unclaimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
     }
 
 

@@ -8,29 +8,44 @@ main: io.github.derbejijing.claim.Main
 commands:
   claiminfo:
     description: get help
+    usage: "/claiminfo"
   claim:
     description: claim the chunk you are in
+    usage: "/claim [start | stop]"
   unclaim:
     description: unclaim the chunk you are in
+    usage: "/unclaim [all]"
   claimslist:
     description: see all claims by the specified team
+    usage: "/claimslist"
   claimsmap:
     description: get a graphical representation of claimed chunks around you
+    usage: "/claimsmap"
   teamcreate:
     description: create a new team
+    usage: "/teamcreate"
   teaminfo:
     description: display information about a/your team
+    usage: "/teaminfo <team>"
   teaminvite:
     description: invite a player to join your team
+    usage: "/teaminvite <player>"
   teaminviteaccept:
     description: accept an invitation to join a team
   teaminvitedecline:
-    description: decline an invitation to join a team 
+    description: decline an invitation to join a team
   teamkick:
     description: kick a player from your team
+    usage: "/teamkick <player>"
   teamleave:
     description: leave your team
+    usage: "/teamleave"
   teamlist:
     description: get a list of all teams
+    usage: "/teamlist"
   teamlog:
     description: get a full log of recent events in your team
+    usage: "/teamlog [days_before_now]"
+  teampromotion:
+    description: promote / degrade a leader or transfer domain
+    usage: "/teampromotion <promote | degrade | transfer> <player>"

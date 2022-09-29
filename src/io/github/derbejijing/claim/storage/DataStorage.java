@@ -115,6 +115,12 @@ public class DataStorage {
     }
 
 
+    public static ArrayList<String> team_get_log(String team, int daysBeforeNow) {
+        for(TeamLogger t : DataStorage.team_logs) return t.getLog(daysBeforeNow);
+        return null;
+    }
+
+
     public static int team_claimed_chunks(String team_name) {
         Team team = DataStorage.team_get_by_name(team_name);
         if(team == null) return 0;
@@ -141,6 +147,14 @@ public class DataStorage {
         if(team == null) return false;
         for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
         return team.claimed_chunks < DataStorage.chunks_per_member * team.getMemberCount();
+    }
+
+
+    public static boolean team_player_can_view_log(String name) {
+        Team team = DataStorage.team_get_by_player(name);
+        if(team == null) return false;
+        for(TeamMember tm : team.getMembers()) if(tm.name.equals(name)) return tm.permission_claim;
+        return false;
     }
 
 

@@ -126,6 +126,15 @@ public class ChunkManager {
     }
 
 
+    public static ArrayList<String> get_claimed_chunk_positions(String team) {
+        ArrayList<String> tmp = new ArrayList<String>();
+        for(ClaimChunk cc : ChunkManager.chunks) if(cc.team.equals(team)) {
+            tmp.add("chunk [" + cc.x + " " + cc.z + "] at [" + cc.x * 16 + " " + cc.z * 16 + "]");
+        }
+        return tmp;
+    }
+
+
     public static void add_player(Player player) {
         for(ChunkPlayer cp : ChunkManager.players) if(cp.name.equals(player.getName())) return;
         ChunkPlayer cp = new ChunkPlayer(player.getName(), "");

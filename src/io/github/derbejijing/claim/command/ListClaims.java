@@ -17,7 +17,7 @@ public class ListClaims implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player) {
-            Team team = DataStorage.team_get_by_name(sender.getName());
+            Team team = DataStorage.team_get_by_player(sender.getName());
             if(team == null) {
                 sender.sendMessage(ChatColor.RED + "You are not in a team");
                 return true;

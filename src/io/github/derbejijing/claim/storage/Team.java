@@ -12,6 +12,7 @@ public class Team {
     public boolean permission_promote;
     public boolean permission_kick;
     public boolean permission_claim;
+    public boolean permission_log;
 
     private ArrayList<TeamMember> members;
 
@@ -26,7 +27,7 @@ public class Team {
     }
 
     
-    public Team(String name, String subtitle, String domain, String permission_invite, String permission_promote, String permission_kick, String permission_claim) {
+    public Team(String name, String subtitle, String domain, String permission_invite, String permission_promote, String permission_kick, String permission_claim, String permission_log) {
         this.name = name.replace("-", " ");
         this.subtitle = subtitle.replace("-", " ");
         this.domain = domain.replace("-", " ");
@@ -34,6 +35,7 @@ public class Team {
         this.permission_promote = Boolean.parseBoolean(permission_promote);
         this.permission_kick = Boolean.parseBoolean(permission_kick);
         this.permission_claim = Boolean.parseBoolean(permission_claim);
+        this.permission_log = Boolean.parseBoolean(permission_log);
         this.members = new ArrayList<TeamMember>();
     }
 
@@ -44,7 +46,8 @@ public class Team {
             " " + this.permission_invite +
             " " + this.permission_promote +
             " " + this.permission_kick +
-            " " + this.permission_claim;
+            " " + this.permission_claim +
+            " " + this.permission_log;
     }
 
 

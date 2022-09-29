@@ -98,7 +98,8 @@ public class TeamCreateDialogue extends Dialogue {
                 this.sendMessage("B) promote players to leader");
                 this.sendMessage("C) kick players from the team");
                 this.sendMessage("D) claim area for the team");
-                this.sendMessage("E) none");
+                this.sendMessage("E) view the team log");
+                this.sendMessage("F) none");
                 this.sendMessageFooter();
                 break;
             case 4:
@@ -106,6 +107,7 @@ public class TeamCreateDialogue extends Dialogue {
                 this.team.permission_promote = answer.toLowerCase().contains("b");
                 this.team.permission_kick = answer.toLowerCase().contains("c");
                 this.team.permission_claim = answer.toLowerCase().contains("d");
+                this.team.permission_log = answer.toLowerCase().contains("e");
 
                 this.sendMessageHeader();
                 this.sendMessage("Team name: " + this.team.name);
@@ -117,6 +119,7 @@ public class TeamCreateDialogue extends Dialogue {
                 this.sendMessage(" promote players: " + (this.team.permission_promote ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
                 this.sendMessage(" kick players: " + (this.team.permission_kick ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
                 this.sendMessage(" claim chunks: " + (this.team.permission_claim ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
+                this.sendMessage(" view team log: " + (this.team.permission_log ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
 
                 this.sendMessage("Send ok to create " + this.team.name);
                 this.sendMessage("Send cancel to quit");

@@ -75,8 +75,8 @@ public class DataStorage {
                 int spaces = line.length() - line_unspaced.length();
                 String[] data = line.split(" ");
 
-                if(line.startsWith("TEAM") && spaces == 7) {
-                    currentTeam = new Team(data[1], data[2], data[3], data[4], data[5], data[6], data[7]);
+                if(line.startsWith("TEAM") && spaces == 8) {
+                    currentTeam = new Team(data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8]);
                     DataStorage.team_add(currentTeam, false);
                 }
 

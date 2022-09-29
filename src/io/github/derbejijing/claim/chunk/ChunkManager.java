@@ -31,14 +31,14 @@ public class ChunkManager {
             if(in_enemy_terrain(player, chunk)) {
                 if(!p.in_enemy_terrain) {
                     player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain");
-                    DataStorage.team_log(getOwnerTeam(chunk), player.getName() + " has entered team property");
+                    DataStorage.team_log(getOwnerTeam(chunk), "at [" + chunk.getX() * 16 + " " + chunk.getZ() * 16 + "], " + player.getName() + " has entered team property");
                     p.in_enemy_terrain = true;
                     p.enemy_chunk = chunk;
                 }
             } else {
                 if(p.in_enemy_terrain) {
                     player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain");
-                    DataStorage.team_log(getOwnerTeam(p.enemy_chunk), player.getName() + " has left team property");
+                    DataStorage.team_log(getOwnerTeam(p.enemy_chunk), "at [" + p.enemy_chunk.getX() * 16 + chunk.getZ() * 16 + "], " + player.getName() + " has left team property");
                     p.in_enemy_terrain = false;
                 }
             }

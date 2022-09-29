@@ -21,8 +21,7 @@ public class Claim implements CommandExecutor {
 
             if(args.length == 0) {
                 ChunkManager.claim_chunk((Player)sender, ((Player)sender).getLocation().getChunk());
-            }
-            else if(args.length == 1) {
+            } else if(args.length == 1) {
                 if(args[0].equals("start")) {
                     ChunkManager.start_claiming((Player)sender);
                 } else if(args[0].equals("stop")) {

@@ -2,10 +2,7 @@ package io.github.derbejijing.claim.chunk;
 
 import java.util.ArrayList;
 
-import javax.xml.catalog.CatalogException;
-
 import org.bukkit.Chunk;
-import org.bukkit.Color;
 import org.bukkit.entity.Player;
 
 import io.github.derbejijing.claim.storage.DataStorage;

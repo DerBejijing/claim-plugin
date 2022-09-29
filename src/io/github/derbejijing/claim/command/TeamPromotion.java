@@ -34,36 +34,44 @@ public class TeamPromotion implements CommandExecutor {
                     return true;
                 }
                 
-                if(args[0] == "promote") {
+                if(args[0].equals("promote")) {
                     if(team.domain == "dictatorship" || team.domain == "monarchy" || team.domain == "anarchy") {
                         sender.sendMessage(ChatColor.RED + "Your team domain " + team.domain + " only allows one or no leaders");
                         sender.sendMessage(ChatColor.GRAY + "Please use " + ChatColor.GREEN + "\"/teampromotion transfer\"" + ChatColor.GREEN + " instead");
                         return false;
                     }
                     team.setLeader(args[1], false);
-                } else if(args[0] == "degrade") {
+                } else if(args[0].equals("degrade")) {
                     if(team.domain == "dictatorship" || team.domain == "monarchy" || team.domain == "anarchy") {
                         sender.sendMessage(ChatColor.RED + "Your team domain " + team.domain + " only allows one or no leaders");
                         sender.sendMessage(ChatColor.GRAY + "Please use " + ChatColor.GREEN + "\"/teampromotion transfer\"" + ChatColor.GREEN + " instead");
                         return false;
                     }
                     team.degradeLeader(args[1]);
-                } else if(args[0] == "transfer") {
-                    team.setLeader(args[0], true);
+                    this.broadcast(ChatColor.GRAY + args[1] + ChatColor.RED + " has been degraded from domain!", team);
+                    return true;
+                } else if(args[0].equals("transfer")) {
+                    team.setLeader(args[1], true);
                 }
 
-
-                for(TeamMember tm : team.getMembers()) {
-                    Player player = Bukkit.getPlayer(tm.name);
-                    if(player.getName().equals(tm.name)) {
-                        sender.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
-                        sender.sendMessage(ChatColor.GRAY + "Your new leader is " + ChatColor.GREEN + args[1] + ChatColor.GRAY + "!");
-                        sender.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
-                    } 
-                }
+                this.broadcast(ChatColor.GRAY + "Your new leader is " + ChatColor.GREEN + args[1] + ChatColor.GRAY + "!", team);
+                
+                return true;
             }
         }
-        return true;
+        return false;
+    }
+
+
+    private void broadcast(String text, Team team) {
+        for(TeamMember tm : team.getMembers()) {
+            Player player = Bukkit.getPlayer(tm.name);
+            if(player != null) if(player.getName().equals(tm.name)) {
+                player.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
+                player.sendMessage(ChatColor.GRAY + text);
+                player.sendMessage(ChatColor.GREEN + "-----------------------------------------------");
+            } 
+        }
     }
     
 }

@@ -1,5 +1,6 @@
 package io.github.derbejijing.claim.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +25,11 @@ public class TeamKick implements CommandExecutor {
                 for(TeamMember tm : team.getMembers()) if(tm.name.equals(args[0])) {
                     if(DataStorage.team_player_can_kick(sender.getName())) {
                         team.removeMember(tm.name);
+                        sender.sendMessage(ChatColor.GRAY + "kicked " + args[0] + " from the team");
+
+                        Player member = Bukkit.getPlayer(args[0]);
+                        if(member != null) member.sendMessage(ChatColor.RED + "You have been kicked from your team");
+
                         DataStorage.team_log(team.name, sender.getName() + " kicked " + args[0]);
                     } else {
                         sender.sendMessage(ChatColor.RED + "You are not allowed to kick players");

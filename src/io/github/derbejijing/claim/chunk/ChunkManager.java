@@ -28,17 +28,19 @@ public class ChunkManager {
                 if(DataStorage.team_player_can_claim(player.getName())) claim_chunk(player, chunk);
                 else player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
             }
+            // this can easily be bypassed by having another team claim an adjacent chunk
+            // but probably wontfix
             if(in_enemy_terrain(player, chunk)) {
                 if(!p.in_enemy_terrain) {
-                    player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain");
-                    DataStorage.team_log(getOwnerTeam(chunk), "at [" + chunk.getX() * 16 + " " + chunk.getZ() * 16 + "], " + player.getName() + " has entered team property");
+                    player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain by " + ChunkManager.getOwnerTeam(chunk));
+                    if(DataStorage.log_property_violation) DataStorage.team_log(getOwnerTeam(chunk), "at [" + chunk.getX() * 16 + " " + chunk.getZ() * 16 + "], " + player.getName() + " has entered team property");
                     p.in_enemy_terrain = true;
                     p.enemy_chunk = chunk;
                 }
             } else {
                 if(p.in_enemy_terrain) {
                     player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain");
-                    DataStorage.team_log(getOwnerTeam(p.enemy_chunk), "at [" + p.enemy_chunk.getX() * 16 + chunk.getZ() * 16 + "], " + player.getName() + " has left team property");
+                    if(DataStorage.log_property_violation) DataStorage.team_log(getOwnerTeam(p.enemy_chunk), "at [" + p.enemy_chunk.getX() * 16 + chunk.getZ() * 16 + "], " + player.getName() + " has left team property");
                     p.in_enemy_terrain = false;
                 }
             }
@@ -111,6 +113,25 @@ public class ChunkManager {
         DataStorage.team_player_unclaim_chunk(player.getName());
         ChunkManager.chunks.remove(remove);
         player.sendMessage(ChatColor.GRAY + "unclaimed chunk [" + chunk.getX() + " " + chunk.getZ() + "]");
+    }
+
+
+    public static void unclaim_all(Player player) {
+        Team team = DataStorage.team_get_by_player(player.getName());
+        if(team == null) {
+            player.sendMessage(ChatColor.RED + "You are not in a team");
+            return;
+        }
+
+        if(!DataStorage.team_player_can_unclaim(player.getName())) {
+            player.sendMessage(ChatColor.RED + "You are not permitted to unclaim chunks");
+            return;
+        }
+
+        ArrayList<ClaimChunk> remove = new ArrayList<ClaimChunk>();
+        for(ClaimChunk cc : ChunkManager.chunks) if(cc.team.equals(team.name)) remove.add(cc);
+        ChunkManager.chunks.removeAll(remove);
+        player.sendMessage(ChatColor.GRAY + "Unclaimed " + remove.size() + " chunks");
     }
 
 

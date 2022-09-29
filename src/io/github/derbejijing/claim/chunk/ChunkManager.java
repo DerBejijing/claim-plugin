@@ -33,11 +33,12 @@ public class ChunkManager {
                     player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain");
                     DataStorage.team_log(getOwnerTeam(chunk), player.getName() + " has entered team property");
                     p.in_enemy_terrain = true;
+                    p.enemy_chunk = chunk;
                 }
             } else {
                 if(p.in_enemy_terrain) {
                     player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain");
-                    DataStorage.team_log(getOwnerTeam(chunk), player.getName() + " has left team property");
+                    DataStorage.team_log(getOwnerTeam(p.enemy_chunk), player.getName() + " has left team property");
                     p.in_enemy_terrain = false;
                 }
             }

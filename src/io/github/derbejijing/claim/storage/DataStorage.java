@@ -116,7 +116,7 @@ public class DataStorage {
 
 
     public static ArrayList<String> team_get_log(String team, int daysBeforeNow) {
-        for(TeamLogger t : DataStorage.team_logs) return t.getLog(daysBeforeNow);
+        for(TeamLogger t : DataStorage.team_logs) if(t.team.equals(team)) return t.getLog(daysBeforeNow);
         return null;
     }
 

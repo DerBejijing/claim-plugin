@@ -36,7 +36,7 @@ public class TeamLogger {
             e.printStackTrace();
             Bukkit.getServer().shutdown();
         }
-        this.log("logger started");
+        this.log("logger started: " + this.file.getPath());
     }
     
 

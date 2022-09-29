@@ -9,7 +9,7 @@ import io.github.derbejijing.claim.chunk.ChunkManager;
 import io.github.derbejijing.claim.command.Claim;
 import io.github.derbejijing.claim.command.ClaimInfo;
 import io.github.derbejijing.claim.command.ClaimsMap;
-import io.github.derbejijing.claim.command.ListClaims;
+import io.github.derbejijing.claim.command.ClaimsList;
 import io.github.derbejijing.claim.command.TeamCreate;
 import io.github.derbejijing.claim.command.TeamInfo;
 import io.github.derbejijing.claim.command.TeamInvite;
@@ -36,7 +36,7 @@ public class Main extends JavaPlugin {
         this.getCommand("claim").setExecutor(new Claim());
         this.getCommand("claiminfo").setExecutor(new ClaimInfo());
         this.getCommand("claimsmap").setExecutor(new ClaimsMap());
-        this.getCommand("listclaims").setExecutor(new ListClaims());
+        this.getCommand("claimslist").setExecutor(new ClaimsList());
         this.getCommand("unclaim").setExecutor(new Unclaim());
         this.getCommand("teamcreate").setExecutor(new TeamCreate());
         this.getCommand("teaminfo").setExecutor(new TeamInfo());

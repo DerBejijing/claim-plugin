@@ -12,7 +12,7 @@ commands:
     description: claim the chunk you are in
   unclaim:
     description: unclaim the chunk you are in
-  listclaims:
+  claimslist:
     description: see all claims by the specified team
   claimsmap:
     description: get a graphical representation of claimed chunks around you

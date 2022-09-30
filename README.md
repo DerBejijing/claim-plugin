@@ -83,3 +83,13 @@ The following permissions for members must be set when creating a team. It is no
   
 # Files  
 All data is store in "claim_data.txt", except for the log files which are stored in "/team_logs/<team_name>/*.log".  
+
+<br>
+  
+# Developer info  
+Building the plugin can either be done by setting up a minecraft plugin development workspace for spigot 1.16, or by using the build file.  
+To build it using the build.sh file, you will need the spigot-API for minecraft 1.19. You can either obtain it manually by running the [Buildtools](https://www.spigotmc.org/wiki/buildtools/) by Spigot, naming the API spigot-api.jar and putting it in the project's root (From my experience only the shaded version works).  
+You can also run the build file with "--setup-env" and it will automatically install the BuildTools (if not present) and build the latest version of the API.  
+Note that you may need to temporarily switch your Java version!  
+  
+From then on, you run the file normally, without any arguments and it will build a file named "Claim.jar"

@@ -10,6 +10,7 @@ Players can create Teams (more like Nations) and claim chunks. This is purely sy
 <br>
 
 # User commands  
+### team commands
 `/teamcreate`  
 Will start a chat dialogue where the player is prompted for information to create a nation.  
 It asks for a name, a short subtitle, what type of domain it is (dictatorship, council, etc.) (this is also purely for status and has no real effect besides influencing the maximum number of leaders) and what permissions non-leaders have. By default the player creating the team, becomes the leader.  
@@ -43,6 +44,17 @@ Will change the leader(s) of the team. The first argument must be "promote", "de
 This action will appear in the team log.  
 The player sending the message must have been given permission by the team leader (see team permissions section).  
 
-`/teamlog <days ago>`  
+`/teamlog [days ago]`  
 Will display the team's log file from, if supplied, <days ago> days ago.  
+The player sending the message must have been given permission by the team leader (see team permissions section).  
+  
+### claim commands  
+`/claim [action]`  
+Will claim the chunk the player is currently in. "Action" can be "start" or "stop" to continuously claim multiple chunks without running the command over and over again. The chunk cannot already be claimed, and a set limit of claimable chunks may not be exceeded. It is determinable by multiplying the team member count by 50.  
+This action will appear in the team log.  
+The player sending the message must have been given permission by the team leader (see team permissions section).  
+  
+`/unclaim [all]`  
+Will unclaim the chunk the player is currently in. If the first arguments equals "all", all chunks claimed by the team will be unclaimed.  
+This action will appear in the team log.  
 The player sending the message must have been given permission by the team leader (see team permissions section).  

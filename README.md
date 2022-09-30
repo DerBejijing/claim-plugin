@@ -58,3 +58,12 @@ The player sending the message must have been given permission by the team leade
 Will unclaim the chunk the player is currently in. If the first arguments equals "all", all chunks claimed by the team will be unclaimed.  
 This action will appear in the team log.  
 The player sending the message must have been given permission by the team leader (see team permissions section).  
+
+`/claimslist`  
+Will list the locations of all chunks claimed by the team.  
+
+`/claimsmap`  
+Displays a map with all nearby chunks. Those claimed by other teams are colored in red.  
+  
+`/claiminfo`  
+Will return a link to this repository.  

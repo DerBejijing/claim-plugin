@@ -17,8 +17,9 @@ It asks for a name, a short subtitle, what type of domain it is (dictatorship, c
 
 `/teaminvite <player>`  
 Sends an invitation to <player> to join your team.  
-This action will appear in the team log.   
-The player sending the message must have been given permission by the team leader (see team permissions section). The request will timeout after 2 minutes, during which the player may not send any more requests.  
+This action will appear in the team log.  
+The player sending the message must have been given permission by the team leader (see team permissions section).  
+The request will timeout after 2 minutes, during which the player may not send any more requests.  
 
 `/teamkick <player>`  
 Will kick <player> from the team.  
@@ -67,3 +68,18 @@ Displays a map with all nearby chunks. Those claimed by other teams are colored 
   
 `/claiminfo`  
 Will return a link to this repository.  
+
+<br>
+  
+# Team permissions  
+The following permissions for members must be set when creating a team. It is not yet possible to change them without messing with the data storage system:  
+  - invite new players  
+  - kick players  
+  - promote players / transfer leadership  
+  - claim new chunks  
+  - view the team log  
+
+<br>
+  
+# Files  
+All data is store in "claim_data.txt", except for the log files which are stored in "/team_logs/<team_name>/*.log".  

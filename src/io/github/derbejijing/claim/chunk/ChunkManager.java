@@ -2,11 +2,15 @@ package io.github.derbejijing.claim.chunk;
 
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import io.github.derbejijing.claim.storage.DataStorage;
 import io.github.derbejijing.claim.storage.Team;
+import io.github.derbejijing.claim.storage.TeamMember;
 import net.md_5.bungee.api.ChatColor;
 
 public class ChunkManager {
@@ -28,22 +32,54 @@ public class ChunkManager {
                 if(DataStorage.team_player_can_claim(player.getName())) claim_chunk(player, chunk);
                 else player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
             }
-            // this can easily be bypassed by having another team claim an adjacent chunk
-            // but probably wontfix
-            if(in_enemy_terrain(player, chunk)) {
-                if(!p.in_enemy_terrain) {
-                    player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain by " + ChunkManager.getOwnerTeam(chunk));
-                    if(DataStorage.log_property_violation) DataStorage.team_log(getOwnerTeam(chunk), "at [" + chunk.getX() * 16 + " " + chunk.getZ() * 16 + "], " + player.getName() + " has entered team property");
-                    p.in_enemy_terrain = true;
-                    p.enemy_chunk = chunk;
-                }
-            } else {
-                if(p.in_enemy_terrain) {
-                    player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain");
-                    if(DataStorage.log_property_violation) DataStorage.team_log(getOwnerTeam(p.enemy_chunk), "at [" + p.enemy_chunk.getX() * 16 + chunk.getZ() * 16 + "], " + player.getName() + " has left team property");
-                    p.in_enemy_terrain = false;
+
+            // still a very dumb implementation
+            // but who gives a shit anyway
+
+            String chunk_owner = getOwnerTeam(chunk);
+            Team owner_team = DataStorage.team_get_by_name(chunk_owner);
+            boolean player_visible = DataStorage.log_property_violation;
+            for(PotionEffect effect : player.getActivePotionEffects()) if(effect.getType().equals(PotionEffectType.INVISIBILITY)) player_visible = false;
+
+            // player has left enemy terrain
+            if(chunk_owner == "") {
+                if(!p.chunk_enemy_team.equals("")) {
+                    player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain by " + ChatColor.GRAY + p.chunk_enemy_team);
+                    if(player_visible) message_team(p.chunk_enemy_team, "someone has left your terrain");
                 }
             }
+            // player is in enemy terrain
+            else {
+                // player has entered enemy terrain
+                if(p.chunk_enemy_team == "") {
+                    player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain by " + ChatColor.GRAY + chunk_owner);
+                    if(player_visible) message_team(chunk_owner, "someone has entered your terrain");
+                }
+                // player is in enemy terrain and enters new
+                else if(!p.chunk_enemy_team.equals(chunk_owner)) {
+                    player.sendMessage(ChatColor.YELLOW + "You left enemy terrain by " + ChatColor.GRAY + p.chunk_enemy_team + ChatColor.YELLOW + " and entered terrain by " + ChatColor.GRAY + chunk_owner);
+                    
+                    if(player_visible) {
+                        message_team(chunk_owner, "someone has left your terrain");
+                        message_team(p.chunk_enemy_team, "someone has entered your terrain");
+                    }
+                }
+                // player is still in enemy terrain
+                else if(p.chunk_enemy_team.equals(chunk_owner));
+            }
+
+            p.chunk_enemy_team = chunk_owner;
+        }
+    }
+
+
+    private static void message_team(String team_name, String message) {
+        Team team = DataStorage.team_get_by_name(team_name);
+        if(team == null) return;
+        DataStorage.team_log(team_name, message);
+        for(TeamMember tm : team.getMembers()) {
+            Player team_member = Bukkit.getPlayer(tm.name);
+            if(team_member != null) team_member.sendMessage(ChatColor.YELLOW + message);
         }
     }
 

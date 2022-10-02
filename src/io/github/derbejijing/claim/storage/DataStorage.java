@@ -27,7 +27,7 @@ public class DataStorage {
     private static ArrayList<TeamInviteRequest> requests = new ArrayList<TeamInviteRequest>();
 
     public static final int chunks_per_member = 50;
-    public static final boolean log_property_violation = false;
+    public static final boolean log_property_violation = true;
 
 
     public static void storage_initialize(String filename) {

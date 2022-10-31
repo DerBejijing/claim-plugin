@@ -35,33 +35,38 @@ public class ChunkManager {
 
             // still a very dumb implementation
             // but who gives a shit anyway
+            Team player_t = DataStorage.team_get_by_player(player.getName());
+            String player_team = "";
+            if(player_t != null) player_team = player_t.name;
 
             String chunk_owner = getOwnerTeam(chunk);
             Team owner_team = DataStorage.team_get_by_name(chunk_owner);
             boolean player_visible = DataStorage.log_property_violation;
             for(PotionEffect effect : player.getActivePotionEffects()) if(effect.getType().equals(PotionEffectType.INVISIBILITY)) player_visible = false;
-
+            Bukkit.getLogger().info("visible: " + player_visible);
             // player has left enemy terrain
             if(chunk_owner == "") {
-                if(!p.chunk_enemy_team.equals("")) {
-                    player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain by " + ChatColor.GRAY + p.chunk_enemy_team);
-                    if(player_visible) message_team(p.chunk_enemy_team, "someone has left your terrain");
+                if(!p.chunk_enemy_team.equals(player_team)) {
+                    if(!p.chunk_enemy_team.equals("")) {
+                        player.sendMessage(ChatColor.YELLOW + "You have left enemy terrain by " + ChatColor.GRAY + p.chunk_enemy_team);
+                        if(player_visible) message_team(p.chunk_enemy_team, "someone has left your terrain");
+                    }
                 }
             }
             // player is in enemy terrain
             else {
                 // player has entered enemy terrain
-                if(p.chunk_enemy_team == "") {
+                if(p.chunk_enemy_team == "") if(!player_team.equals(chunk_owner)) {
                     player.sendMessage(ChatColor.YELLOW + "You have entered enemy terrain by " + ChatColor.GRAY + chunk_owner);
                     if(player_visible) message_team(chunk_owner, "someone has entered your terrain");
                 }
                 // player is in enemy terrain and enters new
                 else if(!p.chunk_enemy_team.equals(chunk_owner)) {
-                    player.sendMessage(ChatColor.YELLOW + "You left enemy terrain by " + ChatColor.GRAY + p.chunk_enemy_team + ChatColor.YELLOW + " and entered terrain by " + ChatColor.GRAY + chunk_owner);
+                    if(!p.chunk_enemy_team.equals(player_team)) player.sendMessage(ChatColor.YELLOW + "You left enemy terrain by " + ChatColor.GRAY + p.chunk_enemy_team + ChatColor.YELLOW + " and entered terrain by " + ChatColor.GRAY + chunk_owner);
                     
                     if(player_visible) {
-                        message_team(chunk_owner, "someone has left your terrain");
-                        message_team(p.chunk_enemy_team, "someone has entered your terrain");
+                        if(!p.chunk_enemy_team.equals(player_team)) message_team(chunk_owner, "someone has left your terrain");
+                        if(!player_team.equals(chunk_owner)) message_team(p.chunk_enemy_team, "someone has entered your terrain");
                     }
                 }
                 // player is still in enemy terrain

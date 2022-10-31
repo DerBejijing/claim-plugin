@@ -36,7 +36,6 @@ public class ChunkManager {
             
             Team player_t = DataStorage.team_get_by_player(player.getName());
             String player_team = "";
-            if(player_t != null) player_team = player_t.name;
 
             String chunk_owner = getOwnerTeam(chunk);
             Team chunk_owner_team = DataStorage.team_get_by_name(chunk_owner);
@@ -70,28 +69,32 @@ public class ChunkManager {
 
                         if(!chunk_team_old.equals("")) if(!chunk_team_old.equals(player_team)) {
                             // message player about leaving terrain
-                            player.sendMessage(ChatColor.YELLOW + "You have left terrain by " + ChatColor.GRAY + chunk_team_old);
+                            player.sendMessage(ChatColor.YELLOW + "1 You have left terrain by " + ChatColor.GRAY + chunk_team_old);
 
                             // message chunk_team_old about player leaving terrain
                             if(player_visible) ChunkManager.message_team(chunk_team_old, "someone has left your terrain");
                         }
 
                         // message player about entering own terrain
-                        player.sendMessage(ChatColor.YELLOW + "You have entered terrain by " + ChatColor.GRAY + chunk_owner);
+                        player.sendMessage(ChatColor.YELLOW + "1 You have entered terrain by " + ChatColor.GRAY + chunk_owner);
                     }
 
                 }
                 // player enters other claimed terrain
                 else {
-                    // player enters new terrain by others
-                    if(!chunk_team_old.equals("")) if(!chunk_owner_team.equals(chunk_owner)) {
-                        player.sendMessage(ChatColor.YELLOW + "You have left terrain by " + ChatColor.GRAY + chunk_team_old);
-                        if(player_visible) ChunkManager.message_team(chunk_team_old, "someone has left your terrain");
-                    }
+                    if(!chunk_team_old.equals(chunk_owner)) {
 
-                    // message player about entering terrain
-                    player.sendMessage(ChatColor.YELLOW + "You have entered terrain by " + ChatColor.GRAY + chunk_owner);
-                    if(player_visible) ChunkManager.message_team(chunk_owner, "someone has entered your terrain");
+                        // player enters new terrain by others
+                        if(!chunk_team_old.equals("")) {
+                            player.sendMessage(ChatColor.YELLOW + "You have left terrain by " + ChatColor.GRAY + chunk_team_old);
+                            if(player_visible) ChunkManager.message_team(chunk_team_old, "someone has left your terrain");
+                        }
+
+                        // message player about entering terrain
+                        player.sendMessage(ChatColor.YELLOW + "You have entered terrain by " + ChatColor.GRAY + chunk_owner);
+                        if(player_visible) ChunkManager.message_team(chunk_owner, "someone has entered your terrain");
+                    
+                    }
                 }
             }
 

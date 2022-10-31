@@ -25,8 +25,82 @@ public class ChunkManager {
         return tmp;
     }
 
-
+    
     public static void handleMovement(Player player, Chunk chunk) {
+        for(ChunkPlayer p : ChunkManager.players) if(p.name.equals(player.getName())) {
+            if(p.claiming) {
+                if(DataStorage.team_player_can_claim(player.getName())) claim_chunk(player, chunk);
+                else player.sendMessage(ChatColor.RED + "You cannot claim more chunks");
+            }
+            
+            Team player_t = DataStorage.team_get_by_player(player.getName());
+            String player_team = "";
+            if(player_t != null) player_team = player_t.name;
+
+            String chunk_owner = getOwnerTeam(chunk);
+            Team chunk_owner_team = DataStorage.team_get_by_name(chunk_owner);
+            boolean player_visible = DataStorage.log_property_violation;
+            for(PotionEffect effect : player.getActivePotionEffects()) if(effect.getType().equals(PotionEffectType.INVISIBILITY)) player_visible = false;
+
+            String chunk_team_old = p.chunk_enemy_team;
+
+
+            // player enters unclaimed terrain
+            if(chunk_owner.equals("")) {
+                if(!chunk_team_old.equals("")) {
+
+                    // message player left terrain by chunk_team_old
+                    player.sendMessage(ChatColor.YELLOW + "You have left terrain by " + ChatColor.GRAY + chunk_team_old);
+
+                    if(!chunk_team_old.equals(player_team)) {
+                        // message chunk_team_old about leaving terrain
+                        if(player_visible) DataStorage.team_log(chunk_team_old, "someone has left your terrain");
+                    }
+
+                }
+            }
+            else {
+
+                // player enters own terrain
+                if(chunk_owner.equals(player_team)) {
+
+                    // player was not in terrain before
+                    if(!chunk_team_old.equals(player_team)) {
+
+                        if(!chunk_team_old.equals("")) if(!chunk_team_old.equals(player_team)) {
+                            // message player about leaving terrain
+                            player.sendMessage(ChatColor.YELLOW + "You have left terrain by " + ChatColor.GRAY + chunk_team_old);
+
+                            // message chunk_team_old about player leaving terrain
+                            if(player_visible) DataStorage.team_log(chunk_team_old, "someone has left your terrain");
+                        }
+
+                        // message player about entering own terrain
+                        player.sendMessage(ChatColor.YELLOW + "You have entered terrain by " + ChatColor.GRAY + chunk_owner);
+                    }
+
+                }
+                // player enters other claimed terrain
+                else {
+                    // player enters new terrain by others
+                    if(!chunk_team_old.equals("")) if(!chunk_owner_team.equals(chunk_owner)) {
+                        player.sendMessage(ChatColor.YELLOW + "You have left terrain by " + ChatColor.GRAY + chunk_team_old);
+                        if(player_visible) DataStorage.team_log(chunk_team_old, "someone has left your terrain");
+                    }
+
+                    // message player about entering terrain
+                    player.sendMessage(ChatColor.YELLOW + "You have entered terrain by " + ChatColor.GRAY + chunk_owner);
+                    if(player_visible) DataStorage.team_log(chunk_owner, "someone has entered your terrain");
+                }
+            }
+
+            p.chunk_enemy_team = chunk_owner;
+
+        }
+    }
+
+
+    public static void handleMovement_old(Player player, Chunk chunk) {
         for(ChunkPlayer p : ChunkManager.players) if(p.name.equals(player.getName())) {
             if(p.claiming) {
                 if(DataStorage.team_player_can_claim(player.getName())) claim_chunk(player, chunk);
@@ -44,6 +118,8 @@ public class ChunkManager {
             boolean player_visible = DataStorage.log_property_violation;
             for(PotionEffect effect : player.getActivePotionEffects()) if(effect.getType().equals(PotionEffectType.INVISIBILITY)) player_visible = false;
             Bukkit.getLogger().info("visible: " + player_visible);
+
+
             // player has left enemy terrain
             if(chunk_owner == "") {
                 if(!p.chunk_enemy_team.equals(player_team)) {
@@ -53,7 +129,7 @@ public class ChunkManager {
                     }
                 }
             }
-            // player is in enemy terrain
+            // player is in claimed terrain
             else {
                 // player has entered enemy terrain
                 if(p.chunk_enemy_team == "") {

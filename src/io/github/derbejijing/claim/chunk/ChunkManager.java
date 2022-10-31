@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -103,6 +104,26 @@ public class ChunkManager {
     private static void message_team(String team_name, String message) {
         Team team = DataStorage.team_get_by_name(team_name);
         if(team == null) return;
+
+        boolean log = DataStorage.log_property_violation_always;
+
+        // check if players are at home
+        for(TeamMember tm : team.getMembers()) {
+            Player team_member = Bukkit.getPlayer(tm.name);
+            if(team_member != null) {
+                
+                // loop over chunk players
+                for(ChunkPlayer cp : ChunkManager.players) {
+
+                    // check if they are in their territory
+                    if(cp.team.equals(team_name)) if(cp.chunk_enemy_team.equals(team_name)) log = true;
+                }
+
+            }
+        }
+
+        if(!log) return;
+
         DataStorage.team_log(team_name, message);
         for(TeamMember tm : team.getMembers()) {
             Player team_member = Bukkit.getPlayer(tm.name);

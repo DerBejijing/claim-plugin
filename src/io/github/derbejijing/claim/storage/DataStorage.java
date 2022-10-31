@@ -28,6 +28,7 @@ public class DataStorage {
 
     public static final int chunks_per_member = 50;
     public static final boolean log_property_violation = true;
+    public static final boolean log_property_violation_always = false;
 
 
     public static void storage_initialize(String filename) {

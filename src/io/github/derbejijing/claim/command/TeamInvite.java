@@ -44,7 +44,7 @@ public class TeamInvite implements CommandExecutor {
 								
 					TextComponent decline_msg = new TextComponent(ChatColor.RED + "[decline]");
 					decline_msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Click to decline").create()));
-					decline_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teaminviteecline " + sender.getName()));
+					decline_msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/teaminvitedecline " + sender.getName()));
 								
 					accept_msg.addExtra(" ");
 					accept_msg.addExtra(decline_msg);

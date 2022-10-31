@@ -37,6 +37,8 @@ public class TeamInviteAccept implements CommandExecutor {
                 DataStorage.team_player_join(sender.getName(), teamJoin.name);
                 DataStorage.request_remove(playerFromName);
                 
+                sender.sendMessage(ChatColor.GOLD + "Request accepted!");
+
             }
         }
         return true;
